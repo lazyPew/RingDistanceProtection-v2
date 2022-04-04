@@ -18,6 +18,7 @@ private:
     void readDefaultConfiguration();
 private:
     Substation _substation;
+    void readDbFiles();
 };
 
 #endif // CONTROLPANEL_H
