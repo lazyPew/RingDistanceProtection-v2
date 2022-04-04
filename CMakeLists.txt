@@ -10,20 +10,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Widgets REQUIRED)
 
 add_executable(${PROJECT_NAME}
-    "sources/main.cpp"
-    "sources/window.h"
-    "sources/window.cpp"
-    "sources/substationModels/substation.h"
-    "sources/substationModels/substation.cpp"
-    "sources/substationModels/voltagelevel.h"
-    "sources/substationModels/voltagelevel.cpp"
-    "sources/substationModels/function.h"
-    "sources/substationModels/function.cpp"
-    "sources/substationModels/transformer.h"
-    "sources/substationModels/transformer.cpp"
-    "sources/qml.qrc"
+    "main.cpp"
+    "controlpanel.cpp"
+    "controlpanel.h"
+    "substationSubModels/connectivitynode.h"
+    "substationSubModels/connectivitynode.cpp"
+    "substationSubModels/substation.h"
+    "substationSubModels/substation.cpp"
+    "substationSubModels/voltagelevel.h"
+    "substationSubModels/voltagelevel.cpp"
+    "substationSubModels/function.h"
+    "substationSubModels/function.cpp"
+    "substationSubModels/transformer.h"
+    "substationSubModels/transformer.cpp"
+    "qml.qrc"
     )
+
+
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick)
