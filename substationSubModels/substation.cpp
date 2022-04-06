@@ -10,9 +10,9 @@ Substation::Substation(QString name,
                        QObject *parent)
     : QObject(parent)
     , _name{name}
-    , _hvLevel(new VoltageLevel(hv))
-    , _mvLevel(new VoltageLevel(mv))
-    , _lvLevel(new VoltageLevel(lv))
+    , _hvLevel(new VoltageLevel("HV",hv))
+    , _mvLevel(new VoltageLevel("MV",mv))
+    , _lvLevel(new VoltageLevel("LV",lv))
 {
 
 }

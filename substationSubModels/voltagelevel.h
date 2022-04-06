@@ -7,13 +7,13 @@ class VoltageLevel : public QObject
 {
     Q_OBJECT
 public:
-    VoltageLevel(int, QObject *parent = nullptr);
+    VoltageLevel(QString, int, QObject *parent = nullptr);
 
 signals:
 
 public slots:
-    QString name() const    { return _name; }
-    int levelValue() const  { return _levelValue; }
+    QString name() const   { return _name; }
+    int levelValue() const { return _levelValue; }
 
 private:
     QString _name;

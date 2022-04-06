@@ -10,7 +10,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Widgets REQUIRED)
 
 add_executable(${PROJECT_NAME}
     "main.cpp"
@@ -18,14 +17,24 @@ add_executable(${PROJECT_NAME}
     "controlpanel.h"
     "substationSubModels/connectivitynode.h"
     "substationSubModels/connectivitynode.cpp"
-    "substationSubModels/substation.h"
-    "substationSubModels/substation.cpp"
-    "substationSubModels/voltagelevel.h"
-    "substationSubModels/voltagelevel.cpp"
-    "substationSubModels/function.h"
+    "substationSubModels/distanceprotection.h"
+    "substationSubModels/distanceprotection.cpp"
+    "substationSubModels/terminal.h"
+    "substationSubModels/terminal.cpp"
+    "substationSubModels/equipment.h"
+    "substationSubModels/equipment.cpp"
+    "substationSubModels/system.h"
+    "substationSubModels/system.cpp"
     "substationSubModels/function.cpp"
-    "substationSubModels/transformer.h"
+    "substationSubModels/function.h"
+    "substationSubModels/substation.cpp"
+    "substationSubModels/substation.h"
     "substationSubModels/transformer.cpp"
+    "substationSubModels/transformer.h"
+    "substationSubModels/voltagelevel.cpp"
+    "substationSubModels/voltagelevel.h"
+    "substationSubModels/wline.cpp"
+    "substationSubModels/wline.h"
     "qml.qrc"
     )
 
