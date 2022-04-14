@@ -8,4 +8,6 @@ ControlPanel::ControlPanel(QObject *parent)
 }
 
 void ControlPanel::readDbFiles()
-{}
+{
+
+}

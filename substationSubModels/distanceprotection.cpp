@@ -1,6 +1,7 @@
 #include "distanceprotection.h"
 
-DistanceProtection::DistanceProtection()
+DistanceProtectionTerminal::DistanceProtectionTerminal(QObject *parent)
+    : Terminal(parent)
 {
 
 }

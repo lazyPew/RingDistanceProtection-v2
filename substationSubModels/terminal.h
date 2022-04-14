@@ -1,11 +1,16 @@
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
+//#include "function.h"
+#include "QObject"
+#include "connectivitynode.h"
 
-class Terminal
+class Terminal : public QObject
 {
+    Q_OBJECT
 public:
-    Terminal();
+    Terminal(QObject *parent = nullptr);
 };
+
 
 #endif // TERMINAL_H

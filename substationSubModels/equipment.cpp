@@ -1,6 +1,7 @@
 #include "equipment.h"
 
-Equipment::Equipment()
+Equipment::Equipment(QObject *parent)
+    : QObject(parent)
 {
 
 }

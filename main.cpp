@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+//#include <QtQml>
+//#include <QJSEngine>
 
 #include "controlpanel.h"
 
@@ -12,6 +14,11 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+//    QJSEngine scriptEngine;
+
+//    QJSValue appInfo = scriptEngine.newObject();
+//    appInfo.setProperty("version", GIT_VERSION);
 
     ControlPanel panel;
 

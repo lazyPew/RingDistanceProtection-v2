@@ -1,6 +1,7 @@
 #include "wline.h"
 
-WLine::WLine()
+WLine::WLine(QObject *parent)
+    : QObject(parent)
 {
 
 }

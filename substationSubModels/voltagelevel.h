@@ -2,6 +2,7 @@
 #define VOLTAGELEVEL_H
 
 #include <QObject>
+#include "connectivitynode.h"
 
 class VoltageLevel : public QObject
 {
@@ -18,6 +19,8 @@ public slots:
 private:
     QString _name;
     int _levelValue;
+
+    QList<ConnectivityNode*> _nodesList;
 };
 
 #endif // VOLTAGELEVEL_H

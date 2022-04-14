@@ -36,6 +36,7 @@ add_executable(${PROJECT_NAME}
     "substationSubModels/wline.cpp"
     "substationSubModels/wline.h"
     "qml.qrc"
+    "README.md"
     )
 
 
