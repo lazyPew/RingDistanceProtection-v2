@@ -10,6 +10,9 @@ class Terminal : public QObject
     Q_OBJECT
 public:
     Terminal(QObject *parent = nullptr);
+
+private:
+    QString _name;
 };
 
 

@@ -2,7 +2,6 @@
 #define WLINE_H
 
 #include <QObject>
-#include "connectivitynode.h"
 
 class WLine : public QObject
 {

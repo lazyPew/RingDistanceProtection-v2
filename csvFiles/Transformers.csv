@@ -1,0 +1,3 @@
+name,"S,MWA","HV,kV","MV,kV","LV,kV","U_h-m,%","U_h-l,%","U_m-l,%",reg,node_HV,node_MV,node_LV,node_N
+T1,63,115,35,10,10.5,18,6,8,b3,b4,b5,bN_T1
+T2,63,115,35,10,10.5,18,6,8,b3,b4,b5,bN_T2

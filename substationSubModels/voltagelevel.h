@@ -10,11 +10,15 @@ class VoltageLevel : public QObject
 public:
     VoltageLevel(QString, int, QObject *parent = nullptr);
 
+    void getNodesFromScv();
+
 signals:
 
 public slots:
-    QString name() const   { return _name; }
-    int levelValue() const { return _levelValue; }
+    QString name() const                        { return _name; }
+    int levelValue() const                      { return _levelValue; }
+
+    QList<ConnectivityNode*> nodesList() const  { return _nodesList; }
 
 private:
     QString _name;

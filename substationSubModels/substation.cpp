@@ -1,6 +1,7 @@
 #include "substation.h"
 
-Substation::Substation(QObject *parent) : QObject(parent)
+Substation::Substation(QObject *parent)
+    : QObject(parent)
 {}
 
 Substation::Substation(QString name,

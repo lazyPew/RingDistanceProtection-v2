@@ -16,10 +16,13 @@ public:
     explicit Substation(QString, int, int, int,
                         QObject *parent = nullptr);
 
-    QString name() const             {return _name;}
-    VoltageLevel* hvLevel() const    {return _hvLevel;}
-    VoltageLevel* mvLevel() const    {return _mvLevel;}
-    VoltageLevel* lvLevel() const    {return _lvLevel;}
+    QString name() const            { return _name; }
+
+    VoltageLevel* hvLevel() const   { return _hvLevel; }
+    VoltageLevel* mvLevel() const   { return _mvLevel; }
+    VoltageLevel* lvLevel() const   { return _lvLevel; }
+
+    Function* function() const      { return _function; }
 
 signals:
 
@@ -32,7 +35,7 @@ private:
     VoltageLevel* _mvLevel;
     VoltageLevel* _lvLevel;
 
-    Function _function;
+    Function* _function;
 
     QList<Transformer*> _transformersList;
 };

@@ -16,9 +16,10 @@ public slots:
 
 private:
     void readDefaultConfiguration();
-private:
-    Substation _substation;
     void readDbFiles();
+
+private:
+    Substation* _substation;
 };
 
 #endif // CONTROLPANEL_H

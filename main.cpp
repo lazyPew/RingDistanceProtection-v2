@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 //    QJSValue appInfo = scriptEngine.newObject();
 //    appInfo.setProperty("version", GIT_VERSION);
 
-    ControlPanel panel;
+    ControlPanel* panel = new ControlPanel();
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

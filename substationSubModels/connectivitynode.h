@@ -17,8 +17,8 @@ signals:
 public slots:
 
 private:
-//    QList<System*> _connectedSystems;
-//    QList<WLine*> _connectedWLines;
+    QList<System*> _connectedSystems;
+    QList<WLine*> _connectedWLines;
 };
 
 #endif // CONNECTIVITYNODE_H
