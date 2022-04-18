@@ -1,7 +1,8 @@
 #include "terminal.h"
 
-Terminal::Terminal(QObject *parent)
+Terminal::Terminal(QString name, QObject *parent)
     : QObject(parent)
+    , _name{name}
 {
 
 }

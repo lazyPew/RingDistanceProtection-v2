@@ -8,10 +8,18 @@ class DistanceProtectionTerminal : public Terminal
 {
     Q_OBJECT
 public:
-    DistanceProtectionTerminal(QObject* parent = nullptr);
+    DistanceProtectionTerminal(QString name = "", QObject* parent = nullptr);
+
+public slots:
+    void calculateParameters();
 
 private:
-    // protectionObject ???
+    void calculateFirstStep_DP();
+    void calculateSecondStep_DP();
+    void calculateThirdStep_DP();
+
+private:
+    WLine* _protectionObject;
     ConnectivityNode* _installNode;
     ConnectivityNode* _directionNode;
 

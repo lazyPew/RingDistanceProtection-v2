@@ -9,7 +9,9 @@ class Terminal : public QObject
 {
     Q_OBJECT
 public:
-    Terminal(QObject *parent = nullptr);
+    Terminal(QString, QObject *parent = nullptr);
+
+    virtual void calculateParameters() = 0;
 
 private:
     QString _name;

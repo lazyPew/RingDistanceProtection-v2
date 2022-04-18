@@ -6,7 +6,10 @@
 class WLine : public QObject
 {
 public:
-    WLine(QObject* parent = nullptr);
+    WLine(QString name = "", QObject* parent = nullptr);
+
+public slots:
+    double lineImpedance() const;
 
 private:
     QString _name;
@@ -14,7 +17,6 @@ private:
     double _resistX;
     double _resistR;
     double _length;
-
 };
 
 #endif // WLINE_H
