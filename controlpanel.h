@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "substationSubModels/substation.h"
+#include "substationModels/substation.h"
 
 class ControlPanel : public QObject
 {

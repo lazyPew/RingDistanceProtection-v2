@@ -3,5 +3,5 @@
 Function::Function(QObject *parent)
     : QObject(parent)
 {
-
+    
 }

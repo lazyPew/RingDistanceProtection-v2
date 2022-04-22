@@ -28,6 +28,7 @@ signals:
 
 public slots:
 
+
 private:
     QString _name;
 

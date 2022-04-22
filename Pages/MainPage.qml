@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-//import Native 1.0
+import QtQuick.Layouts 1.11
 
 Page {
     width: 600
@@ -8,9 +8,14 @@ Page {
 
     title: qsTr("scheme")
 
-    Image{
-        source: "Images/scheme.png"
+    RowLayout{
         anchors.fill: parent
+
+    Image{
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        source: "Images/scheme.png"
         fillMode: Image.PreserveAspectFit
+    }
     }
 }
