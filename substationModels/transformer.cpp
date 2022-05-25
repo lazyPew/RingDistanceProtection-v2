@@ -16,4 +16,7 @@ Transformer::Transformer(QString csvLine, QObject *parent)
     , _uKoefH_M{csvLine.split(";")[6].toDouble()}
     , _uKoefM_L{csvLine.split(";")[7].toDouble()}
     , _regulation{csvLine.split(";")[8].toDouble()}
+    , _nodeHV{csvLine.split(";")[9]}
+    , _nodeMV{csvLine.split(";")[10]}
+    , _nodeLV{csvLine.split(";")[11]}
 {}

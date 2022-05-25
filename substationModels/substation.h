@@ -32,6 +32,7 @@ public slots:
 private:
     void getTransformersFromCsv();
     void addTransformer(QString line);
+    void connectTransformerToNodes(Transformer*);
 
 private:
     QString _name;

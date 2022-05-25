@@ -11,24 +11,25 @@ class VoltageLevel : public QObject
 public:
     VoltageLevel(QString, int, QObject *parent = nullptr);
 
-    void getNodesFromScv();
+    ConnectivityNode* getNodeByName(QString);
 
 signals:
 
 public slots:
-    QString name() const                        { return _name; }
-    int levelValue() const                      { return _levelValue; }
+    QString name() const                                { return _name; }
+    int levelValue() const                              { return _levelValue; }
 
-    QList<ConnectivityNode*> nodesList() const  { return _nodesList; }
+    QMap<QString,ConnectivityNode*> nodesList() const   { return _nodesMap; }
 
 private:
+    void getNodesFromScv();
     void parseNodes(QString);
 
 private:
     QString _name;
     int _levelValue;
 
-    QList<ConnectivityNode*> _nodesList;
+    QMap<QString,ConnectivityNode*> _nodesMap;
     QList<Transformer*> _transformersList;
 };
 

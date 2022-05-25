@@ -1,5 +1,5 @@
 #include "connectivitynode.h"
-
+#include <QDebug>
 ConnectivityNode::ConnectivityNode(QString name,
                                    QObject *parent)
     : QObject(parent)
@@ -19,4 +19,5 @@ void ConnectivityNode::connectWLine(WLine* w)
 void ConnectivityNode::connectTransformer(Transformer* t)
 {
     _connectedTransformers.insert(t->name(), t);
+    qDebug() << _name << _connectedTransformers;
 }

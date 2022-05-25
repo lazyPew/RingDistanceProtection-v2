@@ -28,10 +28,15 @@ void VoltageLevel::getNodesFromScv()
             parseNodes(line);
         }
     }
-    qDebug() << _nodesList;
+    qDebug() << _nodesMap;
+}
+
+ConnectivityNode *VoltageLevel::getNodeByName(QString nodeName)
+{
+    return _nodesMap.value(nodeName);
 }
 
 void VoltageLevel::parseNodes(QString line)
 {
-    _nodesList.append(new ConnectivityNode(line.split(";")[0]));
+    _nodesMap.insert(line.split(";")[0],new ConnectivityNode(line.split(";")[0]));
 }

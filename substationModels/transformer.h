@@ -15,7 +15,11 @@ public:
 signals:
 
 public slots:
-    QString name() const {return _name;}
+    QString name() const    {return _name;}
+
+    QString nodeHV() const  { return _nodeHV; }
+    QString nodeMV() const  { return _nodeMV; }
+    QString nodeLV() const  { return _nodeLV; }
 
 private:
     QString _name;
@@ -30,11 +34,12 @@ private:
     double _uKoefH_M;
     double _uKoefM_L;
 
-//    ConnectivityNode* _nodeHV;
-//    ConnectivityNode* _nodeMV;
-//    ConnectivityNode* _nodeLV;
-
     double _regulation;
+
+    QString _nodeHV;
+    QString _nodeMV;
+    QString _nodeLV;
+
 };
 
 #endif // TRANSFORMER_H

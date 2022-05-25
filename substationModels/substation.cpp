@@ -42,6 +42,14 @@ void Substation::getTransformersFromCsv()
 
 void Substation::addTransformer(QString line)
 {
+    Transformer* transformer = new Transformer(line);
+    _transformersMap.insert(transformer->name(), transformer);
+    connectTransformerToNodes(transformer);
+}
 
-    _transformersMap.insert(line.split(";")[0], new Transformer(line));
+void Substation::connectTransformerToNodes(Transformer* transformer)
+{
+    _hvLevel->getNodeByName(transformer->nodeHV())->connectTransformer(transformer);
+    _mvLevel->getNodeByName(transformer->nodeMV())->connectTransformer(transformer);
+    _lvLevel->getNodeByName(transformer->nodeLV())->connectTransformer(transformer);
 }
