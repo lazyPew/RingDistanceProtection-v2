@@ -12,16 +12,16 @@ ApplicationWindow {
     title: qsTr("Stack")
 
     header: ToolBar {
-        contentHeight: toolButton.implicitHeight
+//        contentHeight: toolButton.implicitHeight
 
-        ToolButton {
-            id: toolButton
-            text: "\u2630"
-            font.pixelSize: Qt.application.font.pixelSize * 1.6
-            onClicked: {
-                drawer.open()
-            }
-        }
+//        ToolButton {
+//            id: toolButton
+//            text: "\u2630"
+//            font.pixelSize: Qt.application.font.pixelSize * 1.6
+//            onClicked: {
+//                drawer.open()
+//            }
+//        }
 
         Label {
             text: stackView.currentItem.title
@@ -46,15 +46,15 @@ ApplicationWindow {
                     drawer.close()
                 }
             }
-            ItemDelegate {
-                text: qsTr("Параметры системы")
-                width: parent.width
-                onClicked: {
-                    stackView.pop()
-                    stackView.push("Pages/ParametersPage.qml")
-                    drawer.close()
-                }
-            }
+//            ItemDelegate {
+//                text: qsTr("Параметры системы")
+//                width: parent.width
+//                onClicked: {
+//                    stackView.pop()
+//                    stackView.push("Pages/ParametersPage.qml")
+//                    drawer.close()
+//                }
+//            }
         }
     }
 

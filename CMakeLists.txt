@@ -16,6 +16,9 @@ add_executable(${PROJECT_NAME}
     "controlpanel.cpp"
     "controlpanel.h"
 
+    "substationModels/DataModels/protectedequipment.cpp"
+    "substationModels/DataModels/protectedequipment.h"
+
     "substationModels/connectivitynode.h"
     "substationModels/connectivitynode.cpp"
     "substationModels/distanceprotection.h"
@@ -36,12 +39,6 @@ add_executable(${PROJECT_NAME}
     "substationModels/voltagelevel.h"
     "substationModels/wline.cpp"
     "substationModels/wline.h"
-
-    "csvFiles/Buses.csv"
-    "csvFiles/DistanceProtections.csv"
-    "csvFiles/Systems.csv"
-    "csvFiles/Transformers.csv"
-    "csvFiles/WLines.csv"
 
     "qml.qrc"
     "README.md"

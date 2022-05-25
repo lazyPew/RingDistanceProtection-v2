@@ -6,16 +6,16 @@ Page {
     width: 600
     height: 400
 
-    title: qsTr("scheme")
+    title: qsTr("Мнемосхема подстанции")
 
     RowLayout{
         anchors.fill: parent
 
-    Image{
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-        source: "Images/scheme.png"
-        fillMode: Image.PreserveAspectFit
-    }
+        Image{
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            source: "Images/scheme.png"
+            fillMode: Image.PreserveAspectFit
+        }
     }
 }

@@ -5,5 +5,10 @@
         <file>Pages/MainPage.qml</file>
         <file>Pages/ParametersPage.qml</file>
         <file>Pages/Images/scheme.png</file>
+        <file>csvFiles/Buses.csv</file>
+        <file>csvFiles/DistanceProtections.csv</file>
+        <file>csvFiles/Systems.csv</file>
+        <file>csvFiles/Transformers.csv</file>
+        <file>csvFiles/WLines.csv</file>
     </qresource>
 </RCC>
