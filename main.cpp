@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 //#include <QtQml>
 //#include <QJSEngine>
 
@@ -23,6 +24,7 @@ int main(int argc, char *argv[])
     ControlPanel* panel = new ControlPanel();
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.rootContext()->setContextProperty("panel", panel);
 
     if (engine.rootObjects().isEmpty())
         return -1;

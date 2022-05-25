@@ -2,6 +2,7 @@
 #define VOLTAGELEVEL_H
 
 #include <QObject>
+#include "transformer.h"
 #include "connectivitynode.h"
 
 class VoltageLevel : public QObject
@@ -21,10 +22,14 @@ public slots:
     QList<ConnectivityNode*> nodesList() const  { return _nodesList; }
 
 private:
+    void parseNodes(QString);
+
+private:
     QString _name;
     int _levelValue;
 
     QList<ConnectivityNode*> _nodesList;
+    QList<Transformer*> _transformersList;
 };
 
 #endif // VOLTAGELEVEL_H

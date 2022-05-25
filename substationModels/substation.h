@@ -27,7 +27,11 @@ public:
 signals:
 
 public slots:
+    void calculateProtectionParameters();
 
+private:
+    void getTransformersFromCsv();
+    void addTransformer(QString line);
 
 private:
     QString _name;
@@ -38,7 +42,7 @@ private:
 
     Function* _function;
 
-    QList<Transformer*> _transformersList;
+    QMap<QString,Transformer*> _transformersMap;
 };
 
 #endif // SUBSTATION_H

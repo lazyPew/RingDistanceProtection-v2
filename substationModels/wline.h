@@ -1,15 +1,18 @@
 #ifndef WLINE_H
 #define WLINE_H
 
-#include <QObject>
+#include "DataModels/protectedequipment.h"
 
-class WLine : public QObject
+class WLine : public ProtectedEquipment
 {
+    Q_OBJECT
+
 public:
     WLine(QString name = "", QObject* parent = nullptr);
 
 public slots:
-    double lineImpedance() const;
+    QString name() const         { return _name; }
+    double lineImpedance() const { return _length * _resistX; }
 
 private:
     QString _name;

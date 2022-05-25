@@ -13,6 +13,7 @@ public:
 
 signals:
 public slots:
+    void calculateProtectionParameters();
 
 private:
     void readDefaultConfiguration();

@@ -5,3 +5,8 @@ Function::Function(QObject *parent)
 {
     
 }
+
+void Function::calculateProtectionParameters()
+{
+
+}

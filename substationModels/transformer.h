@@ -2,6 +2,7 @@
 #define TRANSFORMER_H
 
 #include <QObject>
+//#include "connectivitynode.h"
 
 class Transformer : public QObject
 {
@@ -9,9 +10,12 @@ class Transformer : public QObject
 public:
     explicit Transformer(QObject *parent = nullptr);
 
+    explicit Transformer(QString csvLine, QObject *parent = nullptr);
+
 signals:
 
 public slots:
+    QString name() const {return _name;}
 
 private:
     QString _name;
@@ -25,6 +29,10 @@ private:
     double _uKoefH_L;
     double _uKoefH_M;
     double _uKoefM_L;
+
+//    ConnectivityNode* _nodeHV;
+//    ConnectivityNode* _nodeMV;
+//    ConnectivityNode* _nodeLV;
 
     double _regulation;
 };

@@ -5,8 +5,13 @@
 
 class System : public QObject
 {
+    Q_OBJECT
+
 public:
     explicit System(QString name, QObject* parent = nullptr);
+
+public slots:
+    QString name() const {return _name;}
 
 private:
     QString _name;
