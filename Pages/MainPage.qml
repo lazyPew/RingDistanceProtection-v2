@@ -18,4 +18,7 @@ Page {
             fillMode: Image.PreserveAspectFit
         }
     }
+    Button{
+        onClicked: panel.calculateProtectionParameters()
+    }
 }

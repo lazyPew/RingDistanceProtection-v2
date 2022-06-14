@@ -9,11 +9,13 @@ ConnectivityNode::ConnectivityNode(QString name,
 void ConnectivityNode::connectSystem(System* s)
 {
     _connectedSystems.insert(s->name(), s);
+    qDebug() << _name << _connectedSystems;
 }
 
 void ConnectivityNode::connectWLine(WLine* w)
 {
     _connectedWLines.insert(w->name(), w);
+    qDebug() << _name << _connectedWLines;
 }
 
 void ConnectivityNode::connectTransformer(Transformer* t)

@@ -2,6 +2,7 @@
 
 Function::Function(QObject *parent)
     : QObject(parent)
+    , _equipment{new Equipment()}
 {
     
 }
@@ -9,4 +10,19 @@ Function::Function(QObject *parent)
 void Function::calculateProtectionParameters()
 {
 
+}
+
+void Function::addWLineToEquipment(WLine* wline)
+{
+    equipment()->addWLine(wline);
+}
+
+void Function::addSystemToEquipment(System* system)
+{
+    equipment()->addSystem(system);
+}
+
+void Function::addTerminal(Terminal* terminal)
+{
+    _terminalsList.append(terminal);
 }

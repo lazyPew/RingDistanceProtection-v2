@@ -18,7 +18,13 @@ public:
 signals:
 
 public slots:
+    Equipment* equipment() { return _equipment; }
+
     void calculateProtectionParameters();
+
+    void addTerminal(Terminal*);
+    void addWLineToEquipment(WLine*);
+    void addSystemToEquipment(System*);
 
     QList<Terminal*> getTerminals() const { return _terminalsList; }
 

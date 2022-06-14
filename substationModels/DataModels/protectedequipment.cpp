@@ -1,6 +1,8 @@
 #include "protectedequipment.h"
 
-ProtectedEquipment::ProtectedEquipment(QObject* parent)
+ProtectedEquipment::ProtectedEquipment(QString name, QObject* parent)
+    : QObject(parent)
+    , _name {name}
 {
 
 }

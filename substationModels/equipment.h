@@ -1,7 +1,8 @@
 #ifndef EQUIPMENT_H
 #define EQUIPMENT_H
 
-#include "QObject"
+#include <QMap>
+
 #include "system.h"
 #include "wline.h"
 
@@ -11,9 +12,15 @@ class Equipment : public QObject
 public:
     Equipment(QObject *parent = nullptr);
 
+    void addWLine(WLine* wline);
+    void addSystem(System* system);
+
+    WLine* getWLine(QString);
+    System* getSystem(QString);
+
 private:
-    QList<WLine*> _wlinesList;
-    QList<System*> _systemsList;
+    QMap<QString, WLine*> _wlinesMap;
+    QMap<QString, System*> _systemsMap;
 };
 
 #endif // EQUIPMENT_H

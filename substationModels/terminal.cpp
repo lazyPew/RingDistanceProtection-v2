@@ -6,3 +6,13 @@ Terminal::Terminal(QString name, QObject *parent)
 {
 
 }
+
+Terminal::Terminal(QString name,
+                   ProtectedEquipment* protectedEquipment,
+                   QObject *parent)
+    : QObject(parent)
+    , _name{name}
+    , _protectedEquipment{protectedEquipment}
+{
+
+}
