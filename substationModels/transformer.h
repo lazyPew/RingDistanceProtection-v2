@@ -12,15 +12,19 @@ public:
 
     explicit Transformer(QString csvLine, QObject *parent = nullptr);
 
+    double transformerImpedanceHV();
+    double transformerImpedanceMV();
+    double transformerImpedanceLV();
+    double distanceProtectionHV();
+
 signals:
 
 public slots:
-    QString name() const    {return _name;}
-
-    QString nodeHV() const  { return _nodeHV; }
-    QString nodeMV() const  { return _nodeMV; }
-    QString nodeLV() const  { return _nodeLV; }
-
+    QString name() const        { return _name; }
+    QString nodeHV() const      { return _nodeHV; }
+    QString nodeMV() const      { return _nodeMV; }
+    QString nodeLV() const      { return _nodeLV; }
+    double regulation() const   { return _regulation; }
 private:
     QString _name;
 

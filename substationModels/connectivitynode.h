@@ -14,9 +14,18 @@ public:
     explicit ConnectivityNode(QString name,
                               QObject *parent = nullptr);
 
+
     void connectSystem(System*);
     void connectWLine(WLine*);
     void connectTransformer(Transformer*);
+
+    int numbersOfSystems();
+    int numbersOfWLines();
+    int numbersOfTransformers();
+
+    System* getSystemByName(QString name);
+    WLine* getWLineByName(QString name);
+    Transformer* getTransformerByName(QString name);
 
 public slots:
 signals:

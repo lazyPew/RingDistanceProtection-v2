@@ -4,14 +4,20 @@
 #include <QObject>
 #include <QAbstractListModel>
 
+//#include "function.h"
 #include "connectivitynode.h"
 
 class Terminal : public QObject
 {
     Q_OBJECT
 public:
-    explicit Terminal(QString, QObject *parent = nullptr);
-    explicit Terminal(QString, ProtectedEquipment*, QObject *parent = nullptr);
+    explicit Terminal(QString,
+//                      Function* func = nullptr,
+                      QObject *parent = nullptr);
+    explicit Terminal(QString,
+                      ProtectedEquipment*,
+//                      Function* func = nullptr,
+                      QObject *parent = nullptr);
 
     virtual void calculateParameters() = 0;
 
@@ -22,6 +28,7 @@ public slots:
 
 private:
     QString _name;
+//    Function* _function;
     ProtectedEquipment* _protectedEquipment;
 };
 

@@ -34,7 +34,6 @@ private:
     void getSystemsFromCsv();
     void getWLinesFromCsv();
 
-
     void addTransformer(QString line);
     void addSystem(QString line);
     void addWLine(QString line);

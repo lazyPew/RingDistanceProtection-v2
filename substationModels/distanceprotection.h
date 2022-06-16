@@ -20,11 +20,22 @@ public:
 
     void connectToNodes(ConnectivityNode* installNode,
                         ConnectivityNode* directionNode);
+    void secondStepCalculation() {calculateSecondStep_DP();}
 
 public slots:
     void calculateParameters();
 
-    WLine* protectedEquipmentAsWLine();
+    ConnectivityNode* installNode() const   {return _installNode; }
+    ConnectivityNode* directionNode() const { return _directionNode; }
+
+    double firstZ() const   { return _firstZ; }
+    double secondZ() const  { return _secondZ; }
+    double thirdZ() const   { return _thirdZ; }
+
+    double firstT() const   { return _firstT; }
+    double secondT() const  { return _secondT; }
+    double thirdT() const   { return _thirdT; }
+
 
 private:
     void resetParameters();
@@ -33,7 +44,11 @@ private:
     void calculateSecondStep_DP();
     void calculateThirdStep_DP();
 
-//    DistanceProtectionTerminal* findNextDPTerminal();
+    double infeedCoef();
+    WLine* protectedEquipmentAsWLine();
+    DistanceProtectionTerminal* findNextDPTerminal();
+    Transformer* chooseTransformer(DistanceProtectionTerminal*);
+
 private:
 //    WLine* _protectionObject;
     ConnectivityNode* _installNode;
