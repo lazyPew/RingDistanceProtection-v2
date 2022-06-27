@@ -2,20 +2,25 @@
 #define DISTANCEPROTECTION_H
 
 #include "terminal.h"
+#include "function.h"
 #include "connectivitynode.h"
 
 class DistanceProtectionTerminal : public Terminal
 {
     Q_OBJECT
 public:
-    explicit DistanceProtectionTerminal(QString csvLine, QObject* parent = nullptr);
+    explicit DistanceProtectionTerminal(QString csvLine,
+                                        Function* parentModel,
+                                        QObject* parent = nullptr);
     explicit DistanceProtectionTerminal(QString name,
                                         WLine* protectionObject,
+                                        Function* parentModel,
                                         QObject* parent = nullptr);
     explicit DistanceProtectionTerminal(QString name,
                                         WLine* protectionObject,
                                         ConnectivityNode* installNode,
                                         ConnectivityNode* directionNode,
+                                        Function* parentModel,
                                         QObject* parent = nullptr);
 
     void connectToNodes(ConnectivityNode* installNode,
@@ -45,11 +50,13 @@ private:
     void calculateThirdStep_DP();
 
     double infeedCoef();
+    System* generationFromBehind();
     WLine* protectedEquipmentAsWLine();
     DistanceProtectionTerminal* findNextDPTerminal();
     Transformer* chooseTransformer(DistanceProtectionTerminal*);
 
 private:
+    Function* _function;
 //    WLine* _protectionObject;
     ConnectivityNode* _installNode;
     ConnectivityNode* _directionNode;

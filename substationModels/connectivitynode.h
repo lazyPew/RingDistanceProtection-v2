@@ -14,6 +14,8 @@ public:
     explicit ConnectivityNode(QString name,
                               QObject *parent = nullptr);
 
+    System* generationInNode();
+    Transformer* chooseTransformer();
 
     void connectSystem(System*);
     void connectWLine(WLine*);

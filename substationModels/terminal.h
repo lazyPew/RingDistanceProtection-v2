@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QAbstractListModel>
 
-//#include "function.h"
 #include "connectivitynode.h"
 
 class Terminal : public QObject

@@ -6,16 +6,19 @@
 
 DistanceProtectionTerminal::DistanceProtectionTerminal(
         QString csvLine,
+        Function* parentModel,
         QObject *parent)
     : Terminal(csvLine.split(";")[0], parent)
+    , _function{parentModel}
 {}
 
 DistanceProtectionTerminal::DistanceProtectionTerminal(
         QString name,
         WLine* protectedEquipment,
+        Function* parentModel,
         QObject *parent)
     : Terminal(name, protectedEquipment, parent)
-//    , _protectionObject{protectionObject}
+    , _function{parentModel}
 {}
 
 DistanceProtectionTerminal::DistanceProtectionTerminal(
@@ -23,8 +26,9 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
         WLine *protectedEquipment,
         ConnectivityNode *installNode,
         ConnectivityNode *directionNode,
+        Function* parentModel,
         QObject *parent)
-    : DistanceProtectionTerminal(name, protectedEquipment, parent)
+    : DistanceProtectionTerminal(name, protectedEquipment, parentModel, parent)
 {
     connectToNodes(installNode,directionNode);
 }
@@ -105,12 +109,12 @@ void DistanceProtectionTerminal::calculateSecondStep_DP()
 
 void DistanceProtectionTerminal::calculateThirdStep_DP()
 {
-//    delta_T = 0.5
-//    k_sense_III = 1.2
-//    dp_next = self.FindNextDP(sub)
-//    z_test = []
+    double delta_T = 0.5;
+    double k_sense_III = 1.2;
+    DistanceProtectionTerminal* dp_next = findNextDPTerminal();
+    double z_test [] = {};
 //    a = self.name
-//    k = self.InfeedCoef(sub)
+    double k = infeedCoef();
 //    if (self.GenerationFromBehind(sub) != None and len(self.node.have_S) > 0):
 //        z_test.append(k_sense_III * (self.obj.LineImpedance() + dp_next.obj.LineImpedance()))
 //    if (len(dp_next.node.have_T) > 0):
@@ -142,40 +146,62 @@ void DistanceProtectionTerminal::calculateThirdStep_DP()
 
 double DistanceProtectionTerminal::infeedCoef()
 {
-    //TODO
-//    double num = 0;
-//    double denum = 0;
-//    if (installNode()->numbersOfSystems() > 0)
-//    {
-//        s_1st = self.node.GenerationInNode()
-//        if (self.GenerationFromBehind(sub) != None):
-//            s_2nd = self.GenerationFromBehind(sub)
-//            num += self.FindNextDP(sub).obj.LineImpedance()
-//            denum += self.FindNextDP(sub).obj.LineImpedance()
-//        elif(self.FindNextDP(sub).node.GenerationInNode() != None):
-//            s_2nd = self.FindNextDP(sub).node.GenerationInNode()
+    double num = 0;
+    double denum = 0;
+    System* s_1st;
+    System* s_2nd;
+    if (installNode()->numbersOfSystems() > 0)
+    {
+        s_1st = installNode()->generationInNode();
+        if (generationFromBehind() != nullptr){
+            System* s_2nd = generationFromBehind();
+            num += findNextDPTerminal()->protectedEquipmentAsWLine()->lineImpedance();
+            denum += findNextDPTerminal()->protectedEquipmentAsWLine()->lineImpedance();
+        }
+        else if(findNextDPTerminal()->installNode()->generationInNode() != nullptr){
+            System* s_2nd = findNextDPTerminal()->installNode()->generationInNode();
+        }
 
-//        num += s_2nd.x
-//        denum += s_1st.x + self.obj.LineImpedance() + s_2nd.x
-//    }
-//    else:
-//        s_1st = self.GenerationFromBehind(sub)
-//        s_2nd = self.FindNextDP(sub).node.GenerationInNode()
-//        num += s_2nd.x
-//        denum += s_1st.x + s_2nd.x + self.obj.LineImpedance() + self.FindNextDP(sub).obj.LineImpedance()
-//    return num / denum
+        num += s_2nd->resistX();
+        denum += s_1st->resistX() + protectedEquipmentAsWLine()->lineImpedance() + s_2nd->resistX();
+    }
+    else{
+        s_1st = generationFromBehind();
+        s_2nd = findNextDPTerminal()->installNode()->generationInNode();
+        num += s_2nd->resistX();
+        denum += s_1st->resistX() + s_2nd->resistX() + protectedEquipmentAsWLine()->lineImpedance()
+                + findNextDPTerminal()->protectedEquipmentAsWLine()->lineImpedance();
+    }
+    return num / denum;
 }
 
 Transformer *DistanceProtectionTerminal::chooseTransformer(DistanceProtectionTerminal* dp_next)
 {
-    //TODO
-//    return dp_next->installNode()->
+    return dp_next->installNode()->chooseTransformer();
 }
 
 DistanceProtectionTerminal *DistanceProtectionTerminal::findNextDPTerminal()
 {
-    //TODO
-//    for(auto dp_new : )
+    for(auto next : _function->getTerminals()){
+        DistanceProtectionTerminal* next_dp = static_cast<DistanceProtectionTerminal*>(next);
+        if(next_dp != nullptr
+                && next_dp->installNode() == directionNode()
+                && next_dp->directionNode() != installNode()){
+            return next_dp;
+        }
+    }
+}
+
+System* DistanceProtectionTerminal::generationFromBehind()
+{
+    for(auto prev: _function->getTerminals()){
+        DistanceProtectionTerminal* prev_dp = static_cast<DistanceProtectionTerminal*>(prev);
+        if(prev_dp != nullptr
+                && prev_dp->installNode() != directionNode()
+                && prev_dp->directionNode() == installNode()){
+            return prev_dp->installNode()->generationInNode();
+        }
+    }
 }
 
 void DistanceProtectionTerminal::resetParameters()

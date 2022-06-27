@@ -140,5 +140,6 @@ void Substation::addTerminal(QString line)
                     line.split(";")[0],
                     function()->equipment()->getWLine(line.split(";")[1]),
                     _hvLevel->getNodeByName(line.split(";")[2]),
-                    _hvLevel->getNodeByName(line.split(";")[3])));
+                    _hvLevel->getNodeByName(line.split(";")[3]),
+                    function()));
 }

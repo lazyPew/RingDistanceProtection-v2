@@ -6,6 +6,21 @@ ConnectivityNode::ConnectivityNode(QString name,
     , _name{name}
 {}
 
+System* ConnectivityNode::generationInNode()
+{
+    if(numbersOfSystems() == 1){
+        return _connectedSystems.first();
+    }
+    return nullptr;
+}
+
+Transformer *ConnectivityNode::chooseTransformer()
+{
+    auto item = _connectedTransformers.begin();
+    std::advance(item, rand() % numbersOfTransformers());
+    return item.value();
+}
+
 void ConnectivityNode::connectSystem(System* s)             { _connectedSystems.insert(s->name(), s); }
 void ConnectivityNode::connectWLine(WLine* w)               { _connectedWLines.insert(w->name(), w); }
 void ConnectivityNode::connectTransformer(Transformer* t)   { _connectedTransformers.insert(t->name(), t); }
