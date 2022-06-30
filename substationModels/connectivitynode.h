@@ -30,6 +30,7 @@ public:
     Transformer* getTransformerByName(QString name);
 
 public slots:
+    QString name() const {return _name;}
 signals:
 
 private:

@@ -48,6 +48,11 @@ void DistanceProtectionTerminal::calculateParameters()
     calculateFirstStep_DP();
     calculateSecondStep_DP();
     calculateThirdStep_DP();
+
+    qDebug() << "\n"  << name() << ":";
+    qDebug() << "   1st: z = " << _firstZ << "\n        t = " << _firstT;
+    qDebug() << "   2nd: z = " << _secondZ << "\n        t = " << _secondT;
+    qDebug() << "   3rd: z = " << _thirdZ << "\n        t = " << _thirdT;
 }
 
 WLine* DistanceProtectionTerminal::protectedEquipmentAsWLine()
@@ -58,7 +63,6 @@ WLine* DistanceProtectionTerminal::protectedEquipmentAsWLine()
 void DistanceProtectionTerminal::calculateFirstStep_DP(){
     _firstZ = 0.87 * (protectedEquipmentAsWLine()->lineImpedance());
     _firstT = 0;
-    qDebug() << name() << _firstZ << _firstT;
 }
 
 void DistanceProtectionTerminal::calculateSecondStep_DP()
@@ -104,44 +108,42 @@ void DistanceProtectionTerminal::calculateSecondStep_DP()
         _secondT += delta_T;
     }
     _secondZ = z_test1;
-    qDebug() << name() << _secondZ << _secondT;
 }
 
 void DistanceProtectionTerminal::calculateThirdStep_DP()
 {
+    if (!isnan(_thirdZ))
+        return;
+
     double delta_T = 0.5;
     double k_sense_III = 1.2;
     DistanceProtectionTerminal* dp_next = findNextDPTerminal();
-    double z_test [] = {};
-//    a = self.name
+    QList<double> z_test;
     double k = infeedCoef();
-//    if (self.GenerationFromBehind(sub) != None and len(self.node.have_S) > 0):
-//        z_test.append(k_sense_III * (self.obj.LineImpedance() + dp_next.obj.LineImpedance()))
-//    if (len(dp_next.node.have_T) > 0):
-//        t = dp_next.node.ChooseTransformer()
-//        z_test.append(k_sense_III * (self.obj.LineImpedance() +
-//                (t.TransformerImpedanceLV() + ((1+t.reg/100)**2)*t.TransformerImpedanceHV()) / self.InfeedCoef(sub)))
-//        b = t.reg
-//        a = self.t_third
-//        c = t.TransformerImpedanceHV()
-
-//    else:
-//        z_test.append(
-//            k_sense_III * (self.obj.LineImpedance() + (dp_next.obj.LineImpedance() / self.InfeedCoef(sub))))
-//    self.z_third = max(z_test)
-//    if (len(self.node.have_T) > 0):
-//        a = self.t_second
-//        self.t_third = self.t_second + delta_T
-//        a = self.t_third
-//    else:
-//        try:
-//            self.t_third = self.FindNextDP(sub).t_third + delta_T
-//        except TypeError:
-//            self.FindNextDP(sub).third_step_dp(sub)
-//            a = self.t_third
-//            self.t_third = self.FindNextDP(sub).t_third + delta_T
-//            a = self.t_third
-    //            a = self.t_third
+    if (generationFromBehind() != nullptr && installNode()->numbersOfSystems() > 0)
+        z_test.append(k_sense_III * (protectedEquipmentAsWLine()->lineImpedance() + dp_next->protectedEquipmentAsWLine()->lineImpedance()));
+    if (dp_next->installNode()->numbersOfTransformers() > 0){
+        Transformer* t = dp_next->installNode()->chooseTransformer();
+        z_test.append(k_sense_III * (protectedEquipmentAsWLine()->lineImpedance() +
+                (t->transformerImpedanceLV() + (pow((1+t->regulation()/100),2) * t->transformerImpedanceHV()) / k)));
+    }
+    else
+        z_test.append(
+            k_sense_III * (protectedEquipmentAsWLine()->lineImpedance() + (dp_next->protectedEquipmentAsWLine()->lineImpedance() / k)));
+    _thirdZ = *std::max_element(z_test.begin(),z_test.end());
+    if (installNode()->numbersOfTransformers() > 0)
+        _thirdT = _secondT + delta_T;
+    else{
+        try
+        {
+            if(isnan(dp_next->thirdT()))
+                throw std::runtime_error("need to calculate third step T for next terminal");
+        }
+        catch (std::runtime_error err){
+            dp_next->thirdStepCalculation();
+        }
+        _thirdT = dp_next->thirdT() + delta_T;
+    }
 }
 
 double DistanceProtectionTerminal::infeedCoef()
@@ -149,17 +151,17 @@ double DistanceProtectionTerminal::infeedCoef()
     double num = 0;
     double denum = 0;
     System* s_1st;
-    System* s_2nd;
+    System* s_2nd = nullptr;
     if (installNode()->numbersOfSystems() > 0)
     {
         s_1st = installNode()->generationInNode();
         if (generationFromBehind() != nullptr){
-            System* s_2nd = generationFromBehind();
+            s_2nd = generationFromBehind();
             num += findNextDPTerminal()->protectedEquipmentAsWLine()->lineImpedance();
             denum += findNextDPTerminal()->protectedEquipmentAsWLine()->lineImpedance();
         }
         else if(findNextDPTerminal()->installNode()->generationInNode() != nullptr){
-            System* s_2nd = findNextDPTerminal()->installNode()->generationInNode();
+            s_2nd = findNextDPTerminal()->installNode()->generationInNode();
         }
 
         num += s_2nd->resistX();
