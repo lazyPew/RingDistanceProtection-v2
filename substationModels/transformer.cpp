@@ -51,3 +51,4 @@ double Transformer::distanceProtectionHV()
 {
     return 0.87 * transformerImpedanceHV();
 }
+

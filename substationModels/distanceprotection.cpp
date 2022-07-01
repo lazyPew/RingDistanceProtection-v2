@@ -19,6 +19,12 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
         QObject *parent)
     : Terminal(name, protectedEquipment, parent)
     , _function{parentModel}
+    , _firstZ(-1)
+    , _secondZ(-1)
+    , _thirdZ(-1)
+    , _firstT(-1)
+    , _secondT(-1)
+    , _thirdT(-1)
 {}
 
 DistanceProtectionTerminal::DistanceProtectionTerminal(
@@ -50,9 +56,9 @@ void DistanceProtectionTerminal::calculateParameters()
     calculateThirdStep_DP();
 
     qDebug() << "\n"  << name() << ":";
-    qDebug() << "   1st: z = " << _firstZ << "\n        t = " << _firstT;
+//    qDebug() << "   1st: z = " << _firstZ << "\n        t = " << _firstT;
     qDebug() << "   2nd: z = " << _secondZ << "\n        t = " << _secondT;
-    qDebug() << "   3rd: z = " << _thirdZ << "\n        t = " << _thirdT;
+//    qDebug() << "   3rd: z = " << _thirdZ << "\n        t = " << _thirdT;
 }
 
 WLine* DistanceProtectionTerminal::protectedEquipmentAsWLine()
@@ -67,13 +73,16 @@ void DistanceProtectionTerminal::calculateFirstStep_DP(){
 
 void DistanceProtectionTerminal::calculateSecondStep_DP()
 {
-    if (!isnan(_secondZ))
+    if (_secondZ > 0)
         return;
 
     double delta_T = 0.5;
     double bfp_T = 0.3;
     double k_sense_II = 1.25;
     DistanceProtectionTerminal* dp_next = findNextDPTerminal();
+    if(dp_next->firstZ() < 0)
+        dp_next->calculateFirstStep_DP();
+
     double z_test1 = 0.87 * (protectedEquipmentAsWLine()->lineImpedance() + 0.9 * dp_next->firstZ());
     _secondT= bfp_T + delta_T;
 
@@ -94,15 +103,18 @@ void DistanceProtectionTerminal::calculateSecondStep_DP()
         }
     }
 
-    if (k_sense_II > z_test1 / protectedEquipmentAsWLine()->lineImpedance()){
-        try
-        {
-            if(isnan(dp_next->secondZ()))
-                throw std::runtime_error("need to calculate second step Z for next terminal");
-        }
-        catch (std::runtime_error err){
-            dp_next->secondStepCalculation();
-        }
+    if (k_sense_II > (z_test1 / protectedEquipmentAsWLine()->lineImpedance())){
+//        try
+//        {
+        qDebug() << dp_next->secondZ();
+            if(dp_next->secondZ() < 0){
+                qDebug() << name();
+//                throw std::runtime_error("need to calculate second step Z for next terminal");
+            }
+//        }
+//        catch (std::runtime_error err){
+//                dp_next->secondStepCalculation();
+//        }
         z_test1 = 0.87 * (protectedEquipmentAsWLine()->lineImpedance() +
                   0.9 * (dp_next->secondZ()));
         _secondT += delta_T;
@@ -112,7 +124,7 @@ void DistanceProtectionTerminal::calculateSecondStep_DP()
 
 void DistanceProtectionTerminal::calculateThirdStep_DP()
 {
-    if (!isnan(_thirdZ))
+    if (_thirdZ > 0)
         return;
 
     double delta_T = 0.5;
@@ -134,14 +146,8 @@ void DistanceProtectionTerminal::calculateThirdStep_DP()
     if (installNode()->numbersOfTransformers() > 0)
         _thirdT = _secondT + delta_T;
     else{
-        try
-        {
-            if(isnan(dp_next->thirdT()))
-                throw std::runtime_error("need to calculate third step T for next terminal");
-        }
-        catch (std::runtime_error err){
+        if(dp_next->thirdT() < 0)
             dp_next->thirdStepCalculation();
-        }
         _thirdT = dp_next->thirdT() + delta_T;
     }
 }
@@ -208,10 +214,11 @@ System* DistanceProtectionTerminal::generationFromBehind()
 
 void DistanceProtectionTerminal::resetParameters()
 {
-    _firstZ = std::numeric_limits<double>::quiet_NaN();
-    _firstT = std::numeric_limits<double>::quiet_NaN();
-    _secondZ = std::numeric_limits<double>::quiet_NaN();
-    _secondT = std::numeric_limits<double>::quiet_NaN();
-    _thirdZ = std::numeric_limits<double>::quiet_NaN();
-    _thirdT = std::numeric_limits<double>::quiet_NaN();
+    _firstZ = -1;
+//    _firstZ = std::numeric_limits<double>::quiet_NaN();
+    _firstT = -1;
+    _secondZ = -1;
+    _secondT = -1;
+    _thirdZ = -1;
+    _thirdT = -1;
 }

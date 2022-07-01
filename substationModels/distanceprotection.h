@@ -25,8 +25,10 @@ public:
 
     void connectToNodes(ConnectivityNode* installNode,
                         ConnectivityNode* directionNode);
-    void secondStepCalculation() {calculateSecondStep_DP();}
-    void thirdStepCalculation() {calculateThirdStep_DP();}
+
+    void firstStepCalculation()     { calculateFirstStep_DP(); }
+    void secondStepCalculation()    { calculateSecondStep_DP(); }
+    void thirdStepCalculation()     { calculateThirdStep_DP(); }
 
 public slots:
     void calculateParameters();
