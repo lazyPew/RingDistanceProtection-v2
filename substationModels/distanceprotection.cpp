@@ -56,9 +56,9 @@ void DistanceProtectionTerminal::calculateParameters()
     calculateThirdStep_DP();
 
     qDebug() << "\n"  << name() << ":";
-//    qDebug() << "   1st: z = " << _firstZ << "\n        t = " << _firstT;
+    qDebug() << "   1st: z = " << _firstZ << "\n        t = " << _firstT;
     qDebug() << "   2nd: z = " << _secondZ << "\n        t = " << _secondT;
-//    qDebug() << "   3rd: z = " << _thirdZ << "\n        t = " << _thirdT;
+    qDebug() << "   3rd: z = " << _thirdZ << "\n        t = " << _thirdT;
 }
 
 WLine* DistanceProtectionTerminal::protectedEquipmentAsWLine()
@@ -89,9 +89,11 @@ void DistanceProtectionTerminal::calculateSecondStep_DP()
     if (dp_next->installNode()->numbersOfTransformers() > 0){
         Transformer* tr = chooseTransformer(dp_next);
         double z_test2 = 0.87 * (protectedEquipmentAsWLine()->lineImpedance() +
-                         (1 / dp_next->installNode()->numbersOfTransformers()) * (
-                         (pow(1-tr->regulation()/100,2))*tr->transformerImpedanceHV() +
-                         tr->transformerImpedanceMV()));
+                         (1.0 / dp_next->installNode()->numbersOfTransformers()) * (
+                         (pow(1-(tr->regulation()/100),2)*
+                          tr->transformerImpedanceHV() +
+                         tr->transformerImpedanceMV())));
+
         if (z_test1 > z_test2){
             if (k_sense_II > z_test2 / protectedEquipmentAsWLine()->lineImpedance()){
                 z_test2 = 0.87 * (protectedEquipmentAsWLine()->lineImpedance() +
@@ -104,19 +106,11 @@ void DistanceProtectionTerminal::calculateSecondStep_DP()
     }
 
     if (k_sense_II > (z_test1 / protectedEquipmentAsWLine()->lineImpedance())){
-//        try
-//        {
-        qDebug() << dp_next->secondZ();
-            if(dp_next->secondZ() < 0){
-                qDebug() << name();
-//                throw std::runtime_error("need to calculate second step Z for next terminal");
-            }
-//        }
-//        catch (std::runtime_error err){
-//                dp_next->secondStepCalculation();
-//        }
+        if(dp_next->secondZ() < 0){
+            dp_next->secondStepCalculation();
+        }
         z_test1 = 0.87 * (protectedEquipmentAsWLine()->lineImpedance() +
-                  0.9 * (dp_next->secondZ()));
+                          0.9 * (dp_next->secondZ()));
         _secondT += delta_T;
     }
     _secondZ = z_test1;

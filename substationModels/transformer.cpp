@@ -1,5 +1,6 @@
 #include "transformer.h"
 #include <math.h>
+#include <QDebug>
 
 Transformer::Transformer(QObject *parent) : QObject(parent)
 {
@@ -13,8 +14,8 @@ Transformer::Transformer(QString csvLine, QObject *parent)
     , _hvLevel{csvLine.split(";")[2].toInt()}
     , _mvLevel{csvLine.split(";")[3].toInt()}
     , _lvLevel{csvLine.split(";")[4].toInt()}
-    , _uKoefH_L{csvLine.split(";")[5].toDouble()}
-    , _uKoefH_M{csvLine.split(";")[6].toDouble()}
+    , _uKoefH_M{csvLine.split(";")[5].toDouble()}
+    , _uKoefH_L{csvLine.split(";")[6].toDouble()}
     , _uKoefM_L{csvLine.split(";")[7].toDouble()}
     , _regulation{csvLine.split(";")[8].toDouble()}
     , _nodeHV{csvLine.split(";")[9]}
@@ -25,26 +26,26 @@ Transformer::Transformer(QString csvLine, QObject *parent)
 double Transformer::transformerImpedanceHV()
 {
     double ukoefH = 0.5 * (_uKoefH_M + _uKoefH_L - _uKoefM_L);
-    if (ukoefH < 0)
+    if (ukoefH <= 0)
         return 0;
     else
-        return ((ukoefH / 100) * (pow(_hvLevel,2 / _powerS)));
+        return ((ukoefH / 100) * (pow(_hvLevel,2) / _powerS));
 }
 double Transformer::transformerImpedanceMV()
 {
     double ukoefM = 0.5 * (_uKoefH_M + _uKoefM_L - _uKoefH_L);
-    if (ukoefM < 0)
+    if (ukoefM <= 0)
         return 0;
     else
-        return ((ukoefM / 100) * (pow(_hvLevel,2 / _powerS)));
+        return ((ukoefM / 100) * (pow(_hvLevel,2) / _powerS));
 }
 double Transformer::transformerImpedanceLV()
 {
     double ukoefL = 0.5 * (_uKoefM_L + _uKoefH_L - _uKoefH_M);
-    if (ukoefL < 0)
+    if (ukoefL <= 0)
         return 0;
     else
-        return ((ukoefL / 100) * (pow(_hvLevel,2 / _powerS)));
+        return ((ukoefL / 100) * (pow(_hvLevel,2) / _powerS));
 }
 
 double Transformer::distanceProtectionHV()
