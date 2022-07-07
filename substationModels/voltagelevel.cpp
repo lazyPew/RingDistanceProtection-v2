@@ -16,7 +16,7 @@ VoltageLevel::VoltageLevel(QString name, int level, QObject *parent)
 
 void VoltageLevel::getNodesFromScv()
 {
-    QFile nodesFile(":/csvFiles/Buses.csv");
+    QFile nodesFile(":/csvFiles/ss1/Buses.csv");
     if (!nodesFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }

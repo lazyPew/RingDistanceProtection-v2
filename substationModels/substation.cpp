@@ -34,7 +34,7 @@ void Substation::calculateProtectionParameters()
 
 void Substation::getTransformersFromCsv()
 {
-    QFile transformerFile(":/csvFiles/Transformers.csv");
+    QFile transformerFile(":/csvFiles/ss1/Transformers.csv");
     if (!transformerFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }
@@ -50,7 +50,7 @@ void Substation::getTransformersFromCsv()
 
 void Substation::getSystemsFromCsv()
 {
-    QFile systemsFile(":/csvFiles/Systems.csv");
+    QFile systemsFile(":/csvFiles/ss1/Systems.csv");
     if (!systemsFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }
@@ -65,7 +65,7 @@ void Substation::getSystemsFromCsv()
 
 void Substation::getWLinesFromCsv()
 {
-    QFile wlinesFile(":/csvFiles/WLines.csv");
+    QFile wlinesFile(":/csvFiles/ss1/WLines.csv");
     if (!wlinesFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }
@@ -120,7 +120,7 @@ void Substation::connectWLineToNodes(WLine* wline)
 
 void Substation::getTerminalsFromCsv()
 {
-    QFile terminalsFile(":/csvFiles/DistanceProtections.csv");
+    QFile terminalsFile(":/csvFiles/ss1/DistanceProtections.csv");
     if (!terminalsFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }

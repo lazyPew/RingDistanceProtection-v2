@@ -29,23 +29,23 @@ ApplicationWindow {
         }
     }
 
-    Drawer {
-        id: drawer
-        width: window.width * 0.66
-        height: window.height
+//    Drawer {
+//        id: drawer
+//        width: window.width * 0.66
+//        height: window.height
 
-        Column {
-            anchors.fill: parent
+//        Column {
+//            anchors.fill: parent
 
-            ItemDelegate {
-                text: qsTr("Мнемосхема")
-                width: parent.width
-                onClicked: {
-                    stackView.pop()
-                    stackView.push("Pages/MainPage.qml")
-                    drawer.close()
-                }
-            }
+//            ItemDelegate {
+//                text: qsTr("Мнемосхема")
+//                width: parent.width
+//                onClicked: {
+//                    stackView.pop()
+//                    stackView.push("Pages/MainPage.qml")
+//                    drawer.close()
+//                }
+//            }
 //            ItemDelegate {
 //                text: qsTr("Параметры системы")
 //                width: parent.width
@@ -55,8 +55,8 @@ ApplicationWindow {
 //                    drawer.close()
 //                }
 //            }
-        }
-    }
+//        }
+//    }
 
     StackView {
         id: stackView
