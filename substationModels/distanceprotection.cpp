@@ -137,12 +137,16 @@ void DistanceProtectionTerminal::calculateThirdStep_DP()
         z_test.append(
             k_sense_III * (protectedEquipmentAsWLine()->lineImpedance() + (dp_next->protectedEquipmentAsWLine()->lineImpedance() / k)));
     _thirdZ = *std::max_element(z_test.begin(),z_test.end());
-    if (installNode()->numbersOfTransformers() > 0)
+    if (installNode()->numbersOfTransformers() > 0){
+        if (_secondT < 0)
+            secondStepCalculation();
         _thirdT = _secondT + delta_T;
+    }
     else{
         if(dp_next->thirdT() < 0)
             dp_next->thirdStepCalculation();
-        _thirdT = dp_next->thirdT() + delta_T;
+        double test = dp_next->thirdT();
+        _thirdT = test+ delta_T;
     }
 }
 
