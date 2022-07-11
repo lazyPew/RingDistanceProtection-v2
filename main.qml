@@ -1,8 +1,10 @@
 import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.4
+import QtQuick.Layouts 1.11
 import QtQuick.VirtualKeyboard 2.2
 
 import "Pages"
+import "Elements"
 
 ApplicationWindow {
     id: window
@@ -58,6 +60,10 @@ ApplicationWindow {
 //        }
 //    }
 
+    ProtectionPopup{
+        id: protectionPopup
+    }
+
     StackView {
         id: stackView
         initialItem: "Pages/MainPage.qml"
@@ -92,4 +98,5 @@ ApplicationWindow {
             }
         }
     }
+
 }

@@ -10,7 +10,11 @@
 class Substation : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(Function* functionObj READ functionObj CONSTANT)
+
 public:
+
     explicit Substation(QObject *parent = nullptr);
 
     explicit Substation(QString, int, int, int,
@@ -22,7 +26,7 @@ public:
     VoltageLevel* mvLevel() const   { return _mvLevel; }
     VoltageLevel* lvLevel() const   { return _lvLevel; }
 
-    Function* function() const      { return _function; }
+    Function* functionObj() const      { return _function; }
 
 signals:
 

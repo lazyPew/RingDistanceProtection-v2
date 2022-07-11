@@ -8,11 +8,17 @@
 class ControlPanel : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(Substation* substation
+               READ substation
+               CONSTANT)
 public:
     explicit ControlPanel(QObject *parent = nullptr);
 
 signals:
 public slots:
+    Substation* substation() const { return _substation; }
+
     void calculateProtectionParameters();
 
 private:

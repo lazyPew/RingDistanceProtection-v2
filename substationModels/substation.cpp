@@ -28,7 +28,7 @@ Substation::Substation(QString name,
 
 void Substation::calculateProtectionParameters()
 {
-    for(auto t: function()->getTerminals())
+    for(auto t: functionObj()->getTerminals())
         t->calculateParameters();
 }
 
@@ -88,14 +88,14 @@ void Substation::addTransformer(QString line)
 void Substation::addSystem(QString line)
 {
     System* system = new System(line);
-    function()->addSystemToEquipment(system);
+    functionObj()->addSystemToEquipment(system);
     connectSystemToNodes(system);
 }
 
 void Substation::addWLine(QString line)
 {
     WLine* wline = new WLine(line);
-    function()->addWLineToEquipment(wline);
+    functionObj()->addWLineToEquipment(wline);
     connectWLineToNodes(wline);
 }
 
@@ -135,11 +135,11 @@ void Substation::getTerminalsFromCsv()
 
 void Substation::addTerminal(QString line)
 {
-    function()->addTerminal(
+    functionObj()->addTerminal(
                 new DistanceProtectionTerminal(
                     line.split(";")[0],
-                    function()->equipment()->getWLine(line.split(";")[1]),
+                    functionObj()->equipment()->getWLine(line.split(";")[1]),
                     _hvLevel->getNodeByName(line.split(";")[2]),
                     _hvLevel->getNodeByName(line.split(";")[3]),
-                    function()));
+                    functionObj()));
 }

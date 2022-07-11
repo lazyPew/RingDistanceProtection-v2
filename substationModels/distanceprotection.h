@@ -8,6 +8,28 @@
 class DistanceProtectionTerminal : public Terminal
 {
     Q_OBJECT
+
+    Q_PROPERTY(double firstZ
+               READ firstZ
+               CONSTANT)
+    Q_PROPERTY(double firstT
+               READ firstT
+               CONSTANT)
+
+    Q_PROPERTY(double secondZ
+               READ secondZ
+               CONSTANT)
+    Q_PROPERTY(double secondT
+               READ secondT
+               CONSTANT)
+
+    Q_PROPERTY(double thirdZ
+               READ thirdZ
+               CONSTANT)
+    Q_PROPERTY(double thirdT
+               READ thirdT
+               CONSTANT)
+
 public:
     explicit DistanceProtectionTerminal(QString csvLine,
                                         Function* parentModel,
@@ -32,8 +54,9 @@ public:
 
 public slots:
     void calculateParameters();
+    QString getResults();
 
-    ConnectivityNode* installNode() const   {return _installNode; }
+    ConnectivityNode* installNode() const   { return _installNode; }
     ConnectivityNode* directionNode() const { return _directionNode; }
 
     double firstZ() const   { return _firstZ; }

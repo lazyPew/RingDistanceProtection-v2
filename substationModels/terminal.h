@@ -9,6 +9,11 @@
 class Terminal : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QString name
+               READ name
+               CONSTANT)
+
 public:
     explicit Terminal(QString,
 //                      Function* func = nullptr,
@@ -19,11 +24,14 @@ public:
                       QObject *parent = nullptr);
 
     virtual void calculateParameters() = 0;
+    virtual QString getResults() = 0;
 
 public slots:
     QString name() const                           { return _name; }
-
     ProtectedEquipment* protectedEquipment() const { return _protectedEquipment; }
+
+private:
+    void registerQmlTypes();
 
 private:
     QString _name;

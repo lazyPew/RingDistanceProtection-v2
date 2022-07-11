@@ -1,4 +1,5 @@
 #include "terminal.h"
+#include <QQmlEngine>
 
 Terminal::Terminal(QString name,
 //                   Function* func,
@@ -7,7 +8,7 @@ Terminal::Terminal(QString name,
     , _name{name}
 //    , _function{func}
 {
-
+    registerQmlTypes();
 }
 
 Terminal::Terminal(QString name,
@@ -20,6 +21,18 @@ Terminal::Terminal(QString name,
 //    , _function{func}
     , _protectedEquipment{protectedEquipment}
 {
-
+    registerQmlTypes();
 }
 
+void Terminal::registerQmlTypes() {
+    static bool registered = false;
+    if (!registered) {
+        qmlRegisterUncreatableType<Terminal>(
+                    "DataModelTypes", 1, 0,
+                    "Terminal", "NOPE"
+                    );
+//        qRegisterMetaType<Error>("Error");
+//        qRegisterMetaType<FeedbackState>("FeedbackState");
+        registered = true;
+    }
+}

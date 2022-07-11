@@ -28,6 +28,8 @@ public slots:
 
     QList<Terminal*> getTerminals() const { return _terminalsList; }
 
+    Terminal* getTerminalByIndex(int index) const { return _terminalsList.at(index); }
+
 private:
     Equipment* _equipment;
     QList<Terminal*> _terminalsList;

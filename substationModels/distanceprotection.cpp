@@ -54,11 +54,14 @@ void DistanceProtectionTerminal::calculateParameters()
     calculateFirstStep_DP();
     calculateSecondStep_DP();
     calculateThirdStep_DP();
+}
 
-    qDebug() << "\n"  << name() << ":";
-    qDebug() << "   1st: z = " << _firstZ << "\n        t = " << _firstT;
-    qDebug() << "   2nd: z = " << _secondZ << "\n        t = " << _secondT;
-    qDebug() << "   3rd: z = " << _thirdZ << "\n        t = " << _thirdT;
+QString DistanceProtectionTerminal::getResults()
+{
+    return "\n" + name() + ":\n" +
+    "   1st: z = " + QString::number(_firstZ) + "\n        t = " + QString::number(_firstT) + "\n"
+    "   2nd: z = " + QString::number(_secondZ) + "\n        t = " + QString::number(_secondT) + "\n"
+    "   3rd: z = " + QString::number(_thirdZ) + "\n        t = " + QString::number(_thirdT);
 }
 
 WLine* DistanceProtectionTerminal::protectedEquipmentAsWLine()
@@ -145,8 +148,7 @@ void DistanceProtectionTerminal::calculateThirdStep_DP()
     else{
         if(dp_next->thirdT() < 0)
             dp_next->thirdStepCalculation();
-        double test = dp_next->thirdT();
-        _thirdT = test+ delta_T;
+        _thirdT = dp_next->thirdT()+ delta_T;
     }
 }
 
@@ -213,7 +215,6 @@ System* DistanceProtectionTerminal::generationFromBehind()
 void DistanceProtectionTerminal::resetParameters()
 {
     _firstZ = -1;
-//    _firstZ = std::numeric_limits<double>::quiet_NaN();
     _firstT = -1;
     _secondZ = -1;
     _secondT = -1;

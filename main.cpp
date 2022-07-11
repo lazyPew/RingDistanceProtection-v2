@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
 
     ControlPanel* panel = new ControlPanel();
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("panel", panel);
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     if (engine.rootObjects().isEmpty())
         return -1;
