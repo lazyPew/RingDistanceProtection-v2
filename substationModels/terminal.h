@@ -28,16 +28,19 @@ public:
     virtual QString getResults() = 0;
 
 public slots:
-    QString name() const                           { return _name; }
-    ProtectedEquipment* protectedEquipment() const { return _protectedEquipment; }
+    QString name() const                            { return _name; }
+    ProtectedEquipment* protectedEquipment() const  { return _protectedEquipment; }
 
     void setProtectedEquipment(ProtectedEquipment*);
+
 private:
     void registerQmlTypes();
 
+protected:
+    QString _protectedEquipmentName;
+
 private:
     QString _name;
-//    Function* _function;
     ProtectedEquipment* _protectedEquipment;
 };
 

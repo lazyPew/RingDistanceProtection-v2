@@ -14,6 +14,7 @@ Terminal::Terminal(QString name,
                    QObject *parent)
     : QObject(parent)
     , _name{name}
+    , _protectedEquipmentName{protectedEquipment->name()}
     , _protectedEquipment{protectedEquipment}
 {
     registerQmlTypes();

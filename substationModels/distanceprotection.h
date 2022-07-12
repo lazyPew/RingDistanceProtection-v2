@@ -95,6 +95,5 @@ private:
     double _secondT;
     double _thirdT;
 
-    QString _protectedEquipmentName;
 };
 #endif // DISTANCEPROTECTION_H

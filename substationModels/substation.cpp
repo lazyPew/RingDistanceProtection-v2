@@ -24,11 +24,9 @@ Substation::Substation(QString name,
 
 void Substation::calculateProtectionParameters()
 {
-    for(auto t: functionObj()->getTerminals()){
 
-        t->resetParameters();
+    for(auto t: functionObj()->getTerminals())
         t->calculateParameters();
-    }
 }
 
 //void Substation::readFiles(int index)

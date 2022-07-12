@@ -23,6 +23,9 @@ void ControlPanel::readFiles(int index)
         getSystemsFromCsv();
         getTransformersFromCsv();
         getWLinesFromCsv();
+        for(auto t: substation()->functionObj()->getTerminals()){
+            t->resetParameters();
+        }
     }
 }
 
