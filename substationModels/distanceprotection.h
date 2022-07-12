@@ -54,6 +54,7 @@ public:
 
 public slots:
     void calculateParameters();
+    void resetParameters();
     QString getResults();
 
     ConnectivityNode* installNode() const   { return _installNode; }
@@ -69,8 +70,6 @@ public slots:
 
 
 private:
-    void resetParameters();
-
     void calculateFirstStep_DP();
     void calculateSecondStep_DP();
     void calculateThirdStep_DP();
@@ -85,7 +84,6 @@ private:
 
 private:
     Function* _function;
-//    WLine* _protectionObject;
     ConnectivityNode* _installNode;
     ConnectivityNode* _directionNode;
 

@@ -7,6 +7,15 @@ class WLine : public ProtectedEquipment
 {
     Q_OBJECT
 
+    Q_PROPERTY(double length
+               READ length
+               CONSTANT)
+    Q_PROPERTY(double resistX
+               READ resistX
+               CONSTANT)
+    Q_PROPERTY(double resistR
+               READ resistR
+               CONSTANT)
 public:
     explicit WLine(QString name,
                    double length,
@@ -18,14 +27,19 @@ public:
           QObject* parent = nullptr);
 
 public slots:
-//    QString name() const            { return _name; }
     double lineImpedance() const    { return _length * _resistX; }
+
+    double length() const           { return _length; }
+    double resistX() const          { return _resistX; }
+    double resistR() const          { return _resistR; }
+
     QString node_1() const          { return _node_1; }
     QString node_2() const          { return _node_2; }
 
 private:
-//    QString _name;
+//    void registerQmlTypes();
 
+private:
     double _length;
     double _resistX;
     double _resistR;

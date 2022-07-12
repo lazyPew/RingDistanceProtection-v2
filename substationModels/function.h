@@ -12,6 +12,9 @@ class Function : public QObject
     Q_PROPERTY(QList<Terminal*> terminalsList
                READ getTerminals
                CONSTANT)
+    Q_PROPERTY(Equipment* equipment
+               READ equipment
+               CONSTANT)
 public:
     explicit Function(QObject *parent = nullptr);
 
@@ -19,8 +22,6 @@ signals:
 
 public slots:
     Equipment* equipment() { return _equipment; }
-
-    void calculateProtectionParameters();
 
     void addTerminal(Terminal*);
     void addWLineToEquipment(WLine*);

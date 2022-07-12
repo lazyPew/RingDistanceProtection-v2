@@ -19,80 +19,47 @@ Substation::Substation(QString name,
     , _lvLevel(new VoltageLevel("LV",lv))
     , _function{new Function()}
 {
-    getSystemsFromCsv();
-    getTransformersFromCsv();
-    getWLinesFromCsv();
-
-    getTerminalsFromCsv();
+//    readFiles();
 }
 
 void Substation::calculateProtectionParameters()
 {
-    for(auto t: functionObj()->getTerminals())
+    for(auto t: functionObj()->getTerminals()){
+        t->resetParameters();
         t->calculateParameters();
-}
-
-void Substation::getTransformersFromCsv()
-{
-    QFile transformerFile(":/csvFiles/ss1/Transformers.csv");
-    if (!transformerFile.open(QIODevice::ReadOnly | QIODevice::Text)){
-        return;
-    }
-
-    QTextStream in(&transformerFile);
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        if(line.split(";")[0].contains("T"))
-            addTransformer(line);
-    }
-    transformerFile.close();
-}
-
-void Substation::getSystemsFromCsv()
-{
-    QFile systemsFile(":/csvFiles/ss1/Systems.csv");
-    if (!systemsFile.open(QIODevice::ReadOnly | QIODevice::Text)){
-        return;
-    }
-
-    QTextStream in(&systemsFile);
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        if(line.split(";")[0].contains("S"))
-            addSystem(line);
     }
 }
 
-void Substation::getWLinesFromCsv()
-{
-    QFile wlinesFile(":/csvFiles/ss1/WLines.csv");
-    if (!wlinesFile.open(QIODevice::ReadOnly | QIODevice::Text)){
-        return;
-    }
+//void Substation::readFiles(int index)
+//{
+////    getSystemsFromCsv(index);
+////    getTransformersFromCsv(index);
+////    getWLinesFromCsv(index);
 
-    QTextStream in(&wlinesFile);
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        if(line.split(";")[0].contains("W"))
-            addWLine(line);
-    }
-}
+////    getTerminalsFromCsv();
 
-void Substation::addTransformer(QString line)
+//}
+
+
+void Substation::parseTransformer(QString line)
 {
     Transformer* transformer = new Transformer(line);
+    if(_transformersMap.find(transformer->name()) != _transformersMap.end())
+        delete _transformersMap.take(transformer->name());
     _transformersMap.insert(transformer->name(), transformer);
     connectTransformerToNodes(transformer);
 }
 
-void Substation::addSystem(QString line)
+void Substation::parseSystem(QString line)
 {
     System* system = new System(line);
     functionObj()->addSystemToEquipment(system);
     connectSystemToNodes(system);
+
+    qDebug() << system;
 }
 
-void Substation::addWLine(QString line)
+void Substation::parseWLine(QString line)
 {
     WLine* wline = new WLine(line);
     functionObj()->addWLineToEquipment(wline);
@@ -117,23 +84,7 @@ void Substation::connectWLineToNodes(WLine* wline)
     _hvLevel->getNodeByName(wline->node_2())->connectWLine(wline);
 }
 
-
-void Substation::getTerminalsFromCsv()
-{
-    QFile terminalsFile(":/csvFiles/ss1/DistanceProtections.csv");
-    if (!terminalsFile.open(QIODevice::ReadOnly | QIODevice::Text)){
-        return;
-    }
-
-    QTextStream in(&terminalsFile);
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        if(line.split(";")[0].contains("dp"))
-            addTerminal(line);
-    }
-}
-
-void Substation::addTerminal(QString line)
+void Substation::parseTerminal(QString line)
 {
     functionObj()->addTerminal(
                 new DistanceProtectionTerminal(

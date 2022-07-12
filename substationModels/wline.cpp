@@ -1,4 +1,5 @@
 #include "wline.h"
+//#include <>
 
 WLine::WLine(QString name,
              double length,
@@ -25,3 +26,16 @@ WLine::WLine(QString csvLine, QObject *parent)
 {
 
 }
+
+//void WLine::registerQmlTypes() {
+//    static bool registered = false;
+//    if (!registered) {
+//        qmlRegisterUncreatableType<DistanceProtectionTerminal>(
+//                    "DataModelTypes", 1, 0,
+//                    "Terminal", "NOPE"
+//                    );
+////        qRegisterMetaType<Error>("Error");
+////        qRegisterMetaType<FeedbackState>("FeedbackState");
+//        registered = true;
+//    }
+//}

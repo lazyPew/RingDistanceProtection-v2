@@ -18,6 +18,10 @@ public:
     WLine* getWLine(QString);
     System* getSystem(QString);
 
+public slots:
+    WLine* getWLineByIndex(int);
+    System* getSystemByIndex(int);
+
 private:
     QMap<QString, WLine*> _wlinesMap;
     QMap<QString, System*> _systemsMap;

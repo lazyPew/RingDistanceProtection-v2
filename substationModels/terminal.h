@@ -24,6 +24,7 @@ public:
                       QObject *parent = nullptr);
 
     virtual void calculateParameters() = 0;
+    virtual void resetParameters() = 0;
     virtual QString getResults() = 0;
 
 public slots:
