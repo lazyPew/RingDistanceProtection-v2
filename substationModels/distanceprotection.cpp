@@ -1,5 +1,6 @@
 #include "distanceprotection.h"
 #include <limits.h>
+#include <QQmlEngine>
 #include <math.h>
 #include <exception>
 #include <QDebug>
@@ -10,7 +11,9 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
         QObject *parent)
     : Terminal(csvLine.split(";")[0], parent)
     , _function{parentModel}
-{}
+{
+    registerQmlTypes();
+}
 
 DistanceProtectionTerminal::DistanceProtectionTerminal(
         QString name,
@@ -25,7 +28,9 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
     , _firstT(-1)
     , _secondT(-1)
     , _thirdT(-1)
-{}
+{
+    registerQmlTypes();
+}
 
 DistanceProtectionTerminal::DistanceProtectionTerminal(
         QString name,
@@ -36,6 +41,7 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
         QObject *parent)
     : DistanceProtectionTerminal(name, protectedEquipment, parentModel, parent)
 {
+    registerQmlTypes();
     connectToNodes(installNode,directionNode);
 }
 
@@ -58,10 +64,11 @@ void DistanceProtectionTerminal::calculateParameters()
 
 QString DistanceProtectionTerminal::getResults()
 {
-    return "\n" + name() + ":\n" +
-    "   1st: z = " + QString::number(_firstZ) + "\n        t = " + QString::number(_firstT) + "\n"
+    return ("\n" + name() + ": " + (_firstZ < 0
+            ? "to be calculated"
+            : "\n   1st: z = " + QString::number(_firstZ) + "\n        t = " + QString::number(_firstT) + "\n"
     "   2nd: z = " + QString::number(_secondZ) + "\n        t = " + QString::number(_secondT) + "\n"
-    "   3rd: z = " + QString::number(_thirdZ) + "\n        t = " + QString::number(_thirdT);
+    "   3rd: z = " + QString::number(_thirdZ) + "\n        t = " + QString::number(_thirdT)));
 }
 
 WLine* DistanceProtectionTerminal::protectedEquipmentAsWLine()
@@ -221,3 +228,17 @@ void DistanceProtectionTerminal::resetParameters()
     _thirdZ = -1;
     _thirdT = -1;
 }
+
+void DistanceProtectionTerminal::registerQmlTypes() {
+    static bool registered = false;
+    if (!registered) {
+        qmlRegisterUncreatableType<DistanceProtectionTerminal>(
+                    "DataModelTypes", 1, 0,
+                    "Terminal", "NOPE"
+                    );
+//        qRegisterMetaType<Error>("Error");
+//        qRegisterMetaType<FeedbackState>("FeedbackState");
+        registered = true;
+    }
+}
+

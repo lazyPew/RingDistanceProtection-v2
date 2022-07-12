@@ -1,20 +1,26 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.4
-import QtQuick.Layouts 1.11
 
-Rectangle{
+AbstractButton{
+    id: control
+
     property var terminal
 
-    width: 24
-    height: 35
-    color: "transparent"
-    border.color: "#ffffff"
-    border.width: 1
+    background: Rectangle{
+        id: rectBckg
+        radius: 2
+        scale: mouseArea.containsPress ? 0.95 : 1
+        opacity: mouseArea.containsMouse ? 0.3 : 0.05
+
+    }
 
     MouseArea {
+        id: mouseArea
         anchors.fill: parent
+        hoverEnabled: true
         onClicked: {
-            console.log(terminal.getResults())
+            protectionPopup.dpObject = terminal
+            protectionPopup.open()
         }
     }
 }

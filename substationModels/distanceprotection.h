@@ -81,6 +81,8 @@ private:
     DistanceProtectionTerminal* findNextDPTerminal();
     Transformer* chooseTransformer(DistanceProtectionTerminal*);
 
+    void registerQmlTypes();
+
 private:
     Function* _function;
 //    WLine* _protectionObject;

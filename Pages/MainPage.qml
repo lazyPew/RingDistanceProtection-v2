@@ -348,19 +348,20 @@ Page {
 
 
                 model:[
-                    { x: 140, y: 60 },
-                    { x: 168, y: 155 },
-                    { x: 258, y: 155 },
-                    { x: 293, y: 60 },
-                    { x: 290, y: 7 },
-                    { x: 138, y: 5 }
+                    { x: 139, y: 60, w:25, h:36 },
+                    { x: 168, y: 154, w:36, h:25  },
+                    { x: 255, y: 154, w:36, h:25  },
+                    { x: 292, y: 60, w:25, h:36  },
+                    { x: 292, y: 7, w:25, h:36  },
+                    { x: 139, y: 5, w:25, h:36  }
                 ]
 
                 DPTerminalButton{
                     x: modelData.x
                     y: modelData.y
+                    width: modelData.w
+                    height: modelData.h
                     terminal: panel.substation.functionObj.getTerminalByIndex(index)
-//                    terminal: dpTerminals[index]
                 }
 
 //                Rectangle{
@@ -394,7 +395,10 @@ Page {
             font.pointSize: 12
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             font.capitalization: Font.Capitalize
-            onClicked: panel.calculateProtectionParameters()
+            onClicked: {
+
+                panel.calculateProtectionParameters()
+            }
         }
     }
     Component.onCompleted: {
