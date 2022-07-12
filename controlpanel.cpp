@@ -5,6 +5,7 @@
 ControlPanel::ControlPanel(QObject *parent)
     : QObject(parent)
     , _substation{ new Substation("ПС 110/35",115,35,10)}
+    , _configurationIndex(0)
 {
     readFiles();
     getTerminalsFromCsv();
@@ -17,15 +18,18 @@ void ControlPanel::calculateProtectionParameters()
 
 void ControlPanel::readFiles(int index)
 {
-    getSystemsFromCsv(index);
-    getTransformersFromCsv(index);
-    getWLinesFromCsv(index);
+    if (index != _configurationIndex){
+        _configurationIndex = index;
+        getSystemsFromCsv();
+        getTransformersFromCsv();
+        getWLinesFromCsv();
+    }
 }
 
 
-void ControlPanel::getTransformersFromCsv(int index)
+void ControlPanel::getTransformersFromCsv()
 {
-    QFile transformerFile(":/csvFiles/ss" + QString::number(index) + "/Transformers.csv");
+    QFile transformerFile(":/csvFiles/ss" + QString::number(_configurationIndex) + "/Transformers.csv");
     if (!transformerFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }
@@ -39,9 +43,9 @@ void ControlPanel::getTransformersFromCsv(int index)
     transformerFile.close();
 }
 
-void ControlPanel::getSystemsFromCsv(int index)
+void ControlPanel::getSystemsFromCsv()
 {
-    QFile systemsFile(":/csvFiles/ss" + QString::number(index) + "/Systems.csv");
+    QFile systemsFile(":/csvFiles/ss" + QString::number(_configurationIndex) + "/Systems.csv");
     if (!systemsFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }
@@ -49,15 +53,14 @@ void ControlPanel::getSystemsFromCsv(int index)
     QTextStream in(&systemsFile);
     while (!in.atEnd()) {
         QString line = in.readLine();
-        qDebug() << line;
         if(line.split(";")[0].contains("S"))
             substation()->parseSystem(line);
     }
 }
 
-void ControlPanel::getWLinesFromCsv(int index)
+void ControlPanel::getWLinesFromCsv()
 {
-    QFile wlinesFile(":/csvFiles/ss" + QString::number(index) + "/WLines.csv");
+    QFile wlinesFile(":/csvFiles/ss" + QString::number(_configurationIndex) + "/WLines.csv");
     if (!wlinesFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
     }

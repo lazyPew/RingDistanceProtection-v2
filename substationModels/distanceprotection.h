@@ -39,7 +39,7 @@ public:
                                         Function* parentModel,
                                         QObject* parent = nullptr);
     explicit DistanceProtectionTerminal(QString name,
-                                        WLine* protectionObject,
+                                        WLine* protectedObject,
                                         ConnectivityNode* installNode,
                                         ConnectivityNode* directionNode,
                                         Function* parentModel,
@@ -94,5 +94,7 @@ private:
     double _firstT;
     double _secondT;
     double _thirdT;
+
+    QString _protectedEquipmentName;
 };
 #endif // DISTANCEPROTECTION_H

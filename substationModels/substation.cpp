@@ -25,6 +25,7 @@ Substation::Substation(QString name,
 void Substation::calculateProtectionParameters()
 {
     for(auto t: functionObj()->getTerminals()){
+
         t->resetParameters();
         t->calculateParameters();
     }
@@ -55,8 +56,6 @@ void Substation::parseSystem(QString line)
     System* system = new System(line);
     functionObj()->addSystemToEquipment(system);
     connectSystemToNodes(system);
-
-    qDebug() << system;
 }
 
 void Substation::parseWLine(QString line)

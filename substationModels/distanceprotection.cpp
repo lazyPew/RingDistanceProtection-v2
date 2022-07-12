@@ -28,6 +28,7 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
     , _firstT(-1)
     , _secondT(-1)
     , _thirdT(-1)
+    , _protectedEquipmentName{protectedEquipment->name()}
 {
     registerQmlTypes();
 }
@@ -56,6 +57,8 @@ void DistanceProtectionTerminal::connectToNodes(
 void DistanceProtectionTerminal::calculateParameters()
 {
     resetParameters();
+
+    setProtectedEquipment(_function->equipment()->getWLine(_protectedEquipmentName));
 
     calculateFirstStep_DP();
     calculateSecondStep_DP();
@@ -158,6 +161,7 @@ void DistanceProtectionTerminal::calculateThirdStep_DP()
         _thirdT = dp_next->thirdT()+ delta_T;
     }
 }
+
 
 double DistanceProtectionTerminal::infeedCoef()
 {

@@ -34,7 +34,7 @@ Page {
             }
 
             Repeater{
-
+                id: dpRepeater
                 model:[
                     { x: 463, y: 98, w:48, h:63 },
                     { x: 513, y: 253, w:61, h:47 },
@@ -219,9 +219,9 @@ Page {
                 Rectangle {
                     id: t2mvrect
                     x: 64
-                    y: 49
+                    y: 48
                     width: 55
-                    height: 50
+                    height: 51
                     color: "#00000000"
                     radius: 44
                     border.color: "#ffffff"
@@ -281,37 +281,37 @@ Page {
 
             Rectangle {
                 id: l2rect
-                x: 247
-                y: 66
-                width: 57
-                height: 77
+                x: 666
+                y: 101
+                width: 77
+                height: 149
                 color: "#00000000"
                 rotation: 0
                 MouseArea {
                     id: l2mouse1
-                    x: 28
-                    y: 35
-                    width: 25
-                    height: 23
+                    x: 34
+                    y: 70
+                    width: 40
+                    height: 35
                 }
 
                 MouseArea {
                     id: l2mouse2
                     x: 16
-                    y: -3
-                    width: 8
-                    height: 86
+                    y: 3
+                    width: 10
+                    height: 145
                     rotation: 10
                 }
 
                 Rectangle {
                     id: l2rectForm
                     x: 19
-                    y: -3
-                    width: 2
-                    height: 86
+                    y: 6
+                    width: 4
+                    height: 140
                     color: "#ffffff"
-                    radius: 1
+                    radius: 2
                     rotation: 10.5
                     border.width: 0
                 }
@@ -320,38 +320,38 @@ Page {
 
             Rectangle {
                 id: l1rect
-                x: 141
-                y: 70
-                width: 56
-                height: 77
+                x: 472
+                y: 101
+                width: 97
+                height: 145
                 color: "#00000000"
                 border.color: "#00000000"
 
                 MouseArea {
                     id: l1mouse1
-                    x: 0
-                    y: 31
-                    width: 20
-                    height: 23
+                    x: 7
+                    y: 69
+                    width: 33
+                    height: 37
                 }
 
                 MouseArea {
                     id: l1mouse2
-                    x: 36
-                    y: -9
-                    width: 8
-                    height: 86
+                    x: 67
+                    y: 1
+                    width: 10
+                    height: 145
                     rotation: -17
                 }
 
                 Rectangle {
                     id: l1rectForm
-                    x: 39
-                    y: -9
-                    width: 2
-                    height: 86
+                    x: 71
+                    y: 3
+                    width: 4
+                    height: 140
                     color: "#ffffff"
-                    radius: 1
+                    radius: 2
                     border.width: 0
                     rotation: -17
                 }
@@ -360,8 +360,7 @@ Page {
         }
 
         Label{
-            text: "test"
-//            text: "Выбор конфигурации системы"
+            text: "Выбор конфигурации системы"
             Layout.fillHeight: false
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: false
@@ -372,22 +371,14 @@ Page {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
 
-            Button{
-                text: "1"
-                font.pixelSize: 15
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                font.capitalization: Font.Capitalize
-                onClicked: {
-//                    panel.readFiles(1)
-                }
-            }
-            Button{
-                text: "2"
-                font.pixelSize: 15
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                font.capitalization: Font.Capitalize
-                onClicked: {
-//                    panel.readFiles(2)
+            Repeater{
+                model:2
+                Button{
+                    text: index+1
+                    font.pixelSize: 15
+                    onClicked: {
+                        panel.readFiles(index+1)
+                    }
                 }
             }
         }
@@ -395,7 +386,7 @@ Page {
         Button{
             text: "Рассчитать параметры срабатывания РЗ"
             font.pixelSize: 15
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.alignment: Qt.AlignHCenter
             font.capitalization: Font.Capitalize
             onClicked: {
                 panel.calculateProtectionParameters()

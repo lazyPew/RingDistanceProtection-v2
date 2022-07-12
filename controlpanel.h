@@ -18,19 +18,21 @@ public:
 signals:
 public slots:
     Substation* substation() const { return _substation; }
+    int configurationIndex() const { return _configurationIndex; }
 
     void calculateProtectionParameters();
     void readFiles(int index = 1);
 
 private:
 
-    void getTransformersFromCsv(int index);
-    void getSystemsFromCsv(int index);
-    void getWLinesFromCsv(int index);
+    void getTransformersFromCsv();
+    void getSystemsFromCsv();
+    void getWLinesFromCsv();
     void getTerminalsFromCsv();
 
 private:
     Substation* _substation;
+    int _configurationIndex;
 };
 
 #endif // CONTROLPANEL_H
