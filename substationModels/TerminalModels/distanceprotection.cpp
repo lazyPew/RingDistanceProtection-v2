@@ -29,6 +29,9 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
     , _secondT(-1)
     , _thirdT(-1)
 {
+    const QRegExp rx(QLatin1Literal("[^0-9]+"));
+    const auto&& parts = index().split(rx, QString::SkipEmptyParts);
+    setFullName("Терминал ДЗ" + parts[0]);
     registerQmlTypes();
 }
 
@@ -63,7 +66,7 @@ void DistanceProtectionTerminal::calculateParameters()
 
 QString DistanceProtectionTerminal::getResults()
 {
-    return ("\n" + name() + ": " + (_firstZ < 0
+    return ("\n" + index() + ": " + (_firstZ < 0
             ? "to be calculated"
             : "\n   1st: z = " + QString::number(_firstZ) + "\n        t = " + QString::number(_firstT) + "\n"
     "   2nd: z = " + QString::number(_secondZ) + "\n        t = " + QString::number(_secondT) + "\n"
@@ -140,7 +143,7 @@ void DistanceProtectionTerminal::calculateThirdStep_DP()
     if (dp_next->installNode()->numbersOfTransformers() > 0){
         Transformer* t = dp_next->installNode()->chooseTransformer();
         z_test.append(k_sense_III * (protectedEquipmentAsWLine()->lineImpedance() +
-                (t->transformerImpedanceLV() + (pow((1+t->regulation()/100),2) * t->transformerImpedanceHV()) / k)));
+                (t->transformerImpedanceLV() + pow(1+(t->regulation()/100),2) * t->transformerImpedanceHV()) / k));
     }
     else
         z_test.append(

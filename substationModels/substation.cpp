@@ -1,5 +1,5 @@
 #include "substation.h"
-#include "distanceprotection.h"
+#include "TerminalModels/distanceprotection.h"
 #include <QDebug>
 #include <QFile>
 

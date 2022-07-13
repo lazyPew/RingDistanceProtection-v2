@@ -7,20 +7,20 @@ class ProtectedEquipment : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name
-               READ name
+    Q_PROPERTY(QString index
+               READ index
                CONSTANT)
 
 public:
-    ProtectedEquipment(QString name, QObject* parent = nullptr);
+    ProtectedEquipment(QString index, QObject* parent = nullptr);
 
-    QString name() const { return _name; }
+    QString index() const { return _index; }
 
 private:
     void registerQmlTypes();
 
 private:
-    QString _name;
+    QString _index;
 };
 
 #endif // PROTECTEDEQUIPMENT_H

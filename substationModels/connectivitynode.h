@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include <QMap>
-#include "system.h"
-#include "wline.h"
-#include "transformer.h"
+#include "EquipmentModels/system.h"
+#include "EquipmentModels/wline.h"
+#include "EquipmentModels/transformer.h"
 
 class ConnectivityNode : public QObject
 {

@@ -78,7 +78,7 @@ Page {
                         anchors.fill: parent
                         onClicked:{
                             console.log(index)
-                            console.log(panel.substation.functionObj.equipment.getSystemByIndex(index).name)
+                            console.log(panel.substation.functionObj.equipment.getSystemByIndex(index).index)
                         }
                     }
                 }

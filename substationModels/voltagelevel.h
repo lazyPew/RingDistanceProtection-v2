@@ -2,7 +2,7 @@
 #define VOLTAGELEVEL_H
 
 #include <QObject>
-#include "transformer.h"
+#include "EquipmentModels/transformer.h"
 #include "connectivitynode.h"
 
 class VoltageLevel : public QObject

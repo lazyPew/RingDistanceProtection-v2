@@ -21,6 +21,12 @@ Popup {
         Layout.fillHeight: true
         width: parent.width
 
+        Label{
+            id: nameLabel
+            font.pixelSize: 15
+            Layout.alignment: Qt.AlignHCenter
+        }
+
         Repeater{
             id:repeater
 
@@ -67,7 +73,8 @@ Popup {
         }
     }
 
-    onOpened:
+    onOpened:{
+        nameLabel.text = dpObject.fullName
         repeater.model = [
             { name: "Z I", value: dpObject.firstZ, unit: "Ом" },
             { name: "T I", value: dpObject.firstT, unit: "с" },
@@ -76,4 +83,5 @@ Popup {
             { name: "Z III", value: dpObject.thirdZ, unit: "Ом" },
             { name: "T III", value: dpObject.thirdT, unit: "с" }
         ]
+    }
 }

@@ -5,7 +5,7 @@
 
 #include "voltagelevel.h"
 #include "function.h"
-#include "transformer.h"
+#include "EquipmentModels/transformer.h"
 
 class Substation : public QObject
 {

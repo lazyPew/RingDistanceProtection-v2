@@ -1,20 +1,20 @@
 #include "terminal.h"
 #include <QQmlEngine>
 
-Terminal::Terminal(QString name,
+Terminal::Terminal(QString index,
                    QObject *parent)
     : QObject(parent)
-    , _name{name}
+    , _index{index}
 {
     registerQmlTypes();
 }
 
-Terminal::Terminal(QString name,
+Terminal::Terminal(QString index,
                    ProtectedEquipment* protectedEquipment,
                    QObject *parent)
     : QObject(parent)
-    , _name{name}
-    , _protectedEquipmentName{protectedEquipment->name()}
+    , _protectedEquipmentName{protectedEquipment->index()}
+    , _index{index}
     , _protectedEquipment{protectedEquipment}
 {
     registerQmlTypes();
@@ -24,6 +24,12 @@ void Terminal::setProtectedEquipment(ProtectedEquipment* newEquipment)
 {
     if(_protectedEquipment != newEquipment)
         _protectedEquipment = newEquipment;
+}
+
+void Terminal::setFullName(QString fullName)
+{
+    if(_terminalFullName != fullName)
+        _terminalFullName = fullName;
 }
 
 void Terminal::registerQmlTypes() {

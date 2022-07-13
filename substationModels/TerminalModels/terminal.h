@@ -4,23 +4,25 @@
 #include <QObject>
 #include <QAbstractListModel>
 
-#include "connectivitynode.h"
+#include "substationModels/connectivitynode.h"
 
 class Terminal : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name
-               READ name
+    Q_PROPERTY(QString index
+               READ index
+               CONSTANT)
+
+    Q_PROPERTY(QString fullName
+               READ fullName
                CONSTANT)
 
 public:
     explicit Terminal(QString,
-//                      Function* func = nullptr,
                       QObject *parent = nullptr);
     explicit Terminal(QString,
                       ProtectedEquipment*,
-//                      Function* func = nullptr,
                       QObject *parent = nullptr);
 
     virtual void calculateParameters() = 0;
@@ -28,36 +30,24 @@ public:
     virtual QString getResults() = 0;
 
 public slots:
-    QString name() const                            { return _name; }
+    QString index() const                           { return _index; }
+    QString fullName() const                        { return _terminalFullName; }
     ProtectedEquipment* protectedEquipment() const  { return _protectedEquipment; }
 
+protected:
     void setProtectedEquipment(ProtectedEquipment*);
+    void setFullName(QString);
 
 private:
     void registerQmlTypes();
 
 protected:
     QString _protectedEquipmentName;
+    QString _terminalFullName;
 
 private:
-    QString _name;
+    QString _index;
     ProtectedEquipment* _protectedEquipment;
 };
-
-//class TerminalsListModel : public QAbstractListModel
-//{
-//    Q_OBJECT
-//public:
-//    explicit TerminalsListModel(QObject* parent = nullptr);
-
-//    enum Roles{
-//        IndexRole = Qt::UserRole + 1,
-//        NameRole,
-//        OpANameRole,
-//        OpBNameRole
-//    };
-
-//};
-
 
 #endif // TERMINAL_H

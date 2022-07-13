@@ -2,8 +2,8 @@
 #define FUNCTION_H
 
 #include <QObject>
-#include "equipment.h"
-#include "terminal.h"
+#include "EquipmentModels/equipment.h"
+#include "TerminalModels/terminal.h"
 
 class Function : public QObject
 {

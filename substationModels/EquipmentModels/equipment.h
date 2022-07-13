@@ -6,6 +6,7 @@
 #include "system.h"
 #include "wline.h"
 
+// change to struct???
 class Equipment : public QObject
 {
     Q_OBJECT

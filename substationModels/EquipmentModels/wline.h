@@ -1,7 +1,7 @@
 #ifndef WLINE_H
 #define WLINE_H
 
-#include "DataModels/protectedequipment.h"
+#include "protectedequipment.h"
 
 class WLine : public ProtectedEquipment
 {
@@ -17,7 +17,7 @@ class WLine : public ProtectedEquipment
                READ resistR
                CONSTANT)
 public:
-    explicit WLine(QString name,
+    explicit WLine(QString index,
                    double length,
                    double resistX,
                    double resistR,

@@ -9,16 +9,16 @@ Equipment::Equipment(QObject *parent)
 
 void Equipment::addWLine(WLine *wline)
 {
-    if(_wlinesMap.find(wline->name()) != _wlinesMap.end())
-        delete _wlinesMap.take(wline->name());
-    _wlinesMap[wline->name()] = wline;
+    if(_wlinesMap.find(wline->index()) != _wlinesMap.end())
+        delete _wlinesMap.take(wline->index());
+    _wlinesMap[wline->index()] = wline;
 }
 
 void Equipment::addSystem(System *system)
 {
-    if(_systemsMap.find(system->name()) != _systemsMap.end())
-        delete _systemsMap.take(system->name());
-    _systemsMap[system->name()] = system;
+    if(_systemsMap.find(system->index()) != _systemsMap.end())
+        delete _systemsMap.take(system->index());
+    _systemsMap[system->index()] = system;
 }
 
 WLine *Equipment::getWLine(QString wlineName)    { return _wlinesMap.value(wlineName); }

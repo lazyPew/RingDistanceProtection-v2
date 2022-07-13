@@ -2,8 +2,8 @@
 #define DISTANCEPROTECTION_H
 
 #include "terminal.h"
-#include "function.h"
-#include "connectivitynode.h"
+#include "substationModels/function.h"
+#include "substationModels/connectivitynode.h"
 
 class DistanceProtectionTerminal : public Terminal
 {
@@ -34,11 +34,11 @@ public:
     explicit DistanceProtectionTerminal(QString csvLine,
                                         Function* parentModel,
                                         QObject* parent = nullptr);
-    explicit DistanceProtectionTerminal(QString name,
+    explicit DistanceProtectionTerminal(QString index,
                                         WLine* protectionObject,
                                         Function* parentModel,
                                         QObject* parent = nullptr);
-    explicit DistanceProtectionTerminal(QString name,
+    explicit DistanceProtectionTerminal(QString index,
                                         WLine* protectedObject,
                                         ConnectivityNode* installNode,
                                         ConnectivityNode* directionNode,

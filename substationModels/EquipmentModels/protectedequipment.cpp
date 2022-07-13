@@ -1,9 +1,9 @@
 #include "protectedequipment.h"
 #include <QQmlEngine>
 
-ProtectedEquipment::ProtectedEquipment(QString name, QObject* parent)
+ProtectedEquipment::ProtectedEquipment(QString index, QObject* parent)
     : QObject(parent)
-    , _name {name}
+    , _index {index}
 {
 
 }

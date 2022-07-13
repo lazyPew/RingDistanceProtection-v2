@@ -1,5 +1,6 @@
 #include "connectivitynode.h"
 #include <QDebug>
+
 ConnectivityNode::ConnectivityNode(QString name,
                                    QObject *parent)
     : QObject(parent)
@@ -21,8 +22,8 @@ Transformer *ConnectivityNode::chooseTransformer()
     return item.value();
 }
 
-void ConnectivityNode::connectSystem(System* s)             { _connectedSystems.insert(s->name(), s); }
-void ConnectivityNode::connectWLine(WLine* w)               { _connectedWLines.insert(w->name(), w); }
+void ConnectivityNode::connectSystem(System* s)             { _connectedSystems.insert(s->index(), s); }
+void ConnectivityNode::connectWLine(WLine* w)               { _connectedWLines.insert(w->index(), w); }
 void ConnectivityNode::connectTransformer(Transformer* t)   { _connectedTransformers.insert(t->name(), t); }
 
 int ConnectivityNode::numbersOfSystems()        { return _connectedSystems.size(); }

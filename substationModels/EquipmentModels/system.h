@@ -2,7 +2,7 @@
 #define SYSTEM_H
 
 #include <QObject>
-#include "DataModels/protectedequipment.h"
+#include "protectedequipment.h"
 
 class System : public ProtectedEquipment
 {
@@ -21,7 +21,7 @@ class System : public ProtectedEquipment
 public:
     explicit System(QString csvLine, QObject* parent = nullptr);
 
-    explicit System(QString name, double power, double resist, QObject* parent = nullptr);
+    explicit System(QString index, double power, double resist, QObject* parent = nullptr);
 
 public slots:
 //    QString name() const    {return _name;}
