@@ -1,5 +1,6 @@
 #include "distanceprotection.h"
 #include <limits.h>
+#include <QQmlEngine>
 #include <math.h>
 #include <exception>
 #include <QDebug>
@@ -10,7 +11,9 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
         QObject *parent)
     : Terminal(csvLine.split(";")[0], parent)
     , _function{parentModel}
-{}
+{
+    registerQmlTypes();
+}
 
 DistanceProtectionTerminal::DistanceProtectionTerminal(
         QString name,
@@ -25,7 +28,12 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
     , _firstT(-1)
     , _secondT(-1)
     , _thirdT(-1)
-{}
+{
+    const QRegExp rx(QLatin1Literal("[^0-9]+"));
+    const auto&& parts = index().split(rx, QString::SkipEmptyParts);
+    setFullName("Терминал ДЗ" + parts[0]);
+    registerQmlTypes();
+}
 
 DistanceProtectionTerminal::DistanceProtectionTerminal(
         QString name,
@@ -36,6 +44,7 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
         QObject *parent)
     : DistanceProtectionTerminal(name, protectedEquipment, parentModel, parent)
 {
+    registerQmlTypes();
     connectToNodes(installNode,directionNode);
 }
 
@@ -49,16 +58,19 @@ void DistanceProtectionTerminal::connectToNodes(
 
 void DistanceProtectionTerminal::calculateParameters()
 {
-    resetParameters();
-
+//    setProtectedEquipment(_function->equipment()->getWLine(_protectedEquipmentName));
     calculateFirstStep_DP();
     calculateSecondStep_DP();
     calculateThirdStep_DP();
+}
 
-    qDebug() << "\n"  << name() << ":";
-    qDebug() << "   1st: z = " << _firstZ << "\n        t = " << _firstT;
-    qDebug() << "   2nd: z = " << _secondZ << "\n        t = " << _secondT;
-    qDebug() << "   3rd: z = " << _thirdZ << "\n        t = " << _thirdT;
+QString DistanceProtectionTerminal::getResults()
+{
+    return ("\n" + index() + ": " + (_firstZ < 0
+            ? "to be calculated"
+            : "\n   1st: z = " + QString::number(_firstZ) + "\n        t = " + QString::number(_firstT) + "\n"
+    "   2nd: z = " + QString::number(_secondZ) + "\n        t = " + QString::number(_secondT) + "\n"
+    "   3rd: z = " + QString::number(_thirdZ) + "\n        t = " + QString::number(_thirdT)));
 }
 
 WLine* DistanceProtectionTerminal::protectedEquipmentAsWLine()
@@ -131,7 +143,7 @@ void DistanceProtectionTerminal::calculateThirdStep_DP()
     if (dp_next->installNode()->numbersOfTransformers() > 0){
         Transformer* t = dp_next->installNode()->chooseTransformer();
         z_test.append(k_sense_III * (protectedEquipmentAsWLine()->lineImpedance() +
-                (t->transformerImpedanceLV() + (pow((1+t->regulation()/100),2) * t->transformerImpedanceHV()) / k)));
+                (t->transformerImpedanceLV() + pow(1+(t->regulation()/100),2) * t->transformerImpedanceHV()) / k));
     }
     else
         z_test.append(
@@ -145,10 +157,10 @@ void DistanceProtectionTerminal::calculateThirdStep_DP()
     else{
         if(dp_next->thirdT() < 0)
             dp_next->thirdStepCalculation();
-        double test = dp_next->thirdT();
-        _thirdT = test+ delta_T;
+        _thirdT = dp_next->thirdT()+ delta_T;
     }
 }
+
 
 double DistanceProtectionTerminal::infeedCoef()
 {
@@ -213,10 +225,24 @@ System* DistanceProtectionTerminal::generationFromBehind()
 void DistanceProtectionTerminal::resetParameters()
 {
     _firstZ = -1;
-//    _firstZ = std::numeric_limits<double>::quiet_NaN();
     _firstT = -1;
     _secondZ = -1;
     _secondT = -1;
     _thirdZ = -1;
     _thirdT = -1;
+    setProtectedEquipment(_function->equipment()->getWLine(_protectedEquipmentName));
 }
+
+void DistanceProtectionTerminal::registerQmlTypes() {
+    static bool registered = false;
+    if (!registered) {
+        qmlRegisterUncreatableType<DistanceProtectionTerminal>(
+                    "DataModelTypes", 1, 0,
+                    "Terminal", "NOPE"
+                    );
+//        qRegisterMetaType<Error>("Error");
+//        qRegisterMetaType<FeedbackState>("FeedbackState");
+        registered = true;
+    }
+}
+

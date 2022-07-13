@@ -15,5 +15,7 @@
         <file>csvFiles/ss2/Systems.csv</file>
         <file>csvFiles/ss2/Transformers.csv</file>
         <file>csvFiles/ss2/WLines.csv</file>
+        <file>Elements/DPTerminalButton.qml</file>
+        <file>Elements/ProtectionPopup.qml</file>
     </qresource>
 </RCC>

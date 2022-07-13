@@ -28,7 +28,7 @@ void VoltageLevel::getNodesFromScv()
             parseNodes(line);
         }
     }
-    qDebug() << _nodesMap;
+//    qDebug() << _nodesMap;
 }
 
 ConnectivityNode *VoltageLevel::getNodeByName(QString nodeName)

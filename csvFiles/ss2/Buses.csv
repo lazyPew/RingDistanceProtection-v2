@@ -1,6 +1,6 @@
-name,"voltageLevel,kV"
-b1,115
-b2,115
-b3,115
-b4,35
-b5,10
+name;voltageLevel,kV
+b1;115
+b2;115
+b3;115
+b4;35
+b5;10

@@ -6,6 +6,7 @@
 #include "system.h"
 #include "wline.h"
 
+// change to struct???
 class Equipment : public QObject
 {
     Q_OBJECT
@@ -17,6 +18,10 @@ public:
 
     WLine* getWLine(QString);
     System* getSystem(QString);
+
+public slots:
+    WLine* getWLineByIndex(int);
+    System* getSystemByIndex(int);
 
 private:
     QMap<QString, WLine*> _wlinesMap;

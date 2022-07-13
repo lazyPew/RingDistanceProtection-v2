@@ -2,8 +2,8 @@
 #define FUNCTION_H
 
 #include <QObject>
-#include "equipment.h"
-#include "terminal.h"
+#include "EquipmentModels/equipment.h"
+#include "TerminalModels/terminal.h"
 
 class Function : public QObject
 {
@@ -11,6 +11,9 @@ class Function : public QObject
 
     Q_PROPERTY(QList<Terminal*> terminalsList
                READ getTerminals
+               CONSTANT)
+    Q_PROPERTY(Equipment* equipment
+               READ equipment
                CONSTANT)
 public:
     explicit Function(QObject *parent = nullptr);
@@ -20,13 +23,13 @@ signals:
 public slots:
     Equipment* equipment() { return _equipment; }
 
-    void calculateProtectionParameters();
-
     void addTerminal(Terminal*);
     void addWLineToEquipment(WLine*);
     void addSystemToEquipment(System*);
 
     QList<Terminal*> getTerminals() const { return _terminalsList; }
+
+    Terminal* getTerminalByIndex(int index) const { return _terminalsList.at(index); }
 
 private:
     Equipment* _equipment;

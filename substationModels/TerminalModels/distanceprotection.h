@@ -2,22 +2,44 @@
 #define DISTANCEPROTECTION_H
 
 #include "terminal.h"
-#include "function.h"
-#include "connectivitynode.h"
+#include "substationModels/function.h"
+#include "substationModels/connectivitynode.h"
 
 class DistanceProtectionTerminal : public Terminal
 {
     Q_OBJECT
+
+    Q_PROPERTY(double firstZ
+               READ firstZ
+               CONSTANT)
+    Q_PROPERTY(double firstT
+               READ firstT
+               CONSTANT)
+
+    Q_PROPERTY(double secondZ
+               READ secondZ
+               CONSTANT)
+    Q_PROPERTY(double secondT
+               READ secondT
+               CONSTANT)
+
+    Q_PROPERTY(double thirdZ
+               READ thirdZ
+               CONSTANT)
+    Q_PROPERTY(double thirdT
+               READ thirdT
+               CONSTANT)
+
 public:
     explicit DistanceProtectionTerminal(QString csvLine,
                                         Function* parentModel,
                                         QObject* parent = nullptr);
-    explicit DistanceProtectionTerminal(QString name,
+    explicit DistanceProtectionTerminal(QString index,
                                         WLine* protectionObject,
                                         Function* parentModel,
                                         QObject* parent = nullptr);
-    explicit DistanceProtectionTerminal(QString name,
-                                        WLine* protectionObject,
+    explicit DistanceProtectionTerminal(QString index,
+                                        WLine* protectedObject,
                                         ConnectivityNode* installNode,
                                         ConnectivityNode* directionNode,
                                         Function* parentModel,
@@ -32,8 +54,10 @@ public:
 
 public slots:
     void calculateParameters();
+    void resetParameters();
+    QString getResults();
 
-    ConnectivityNode* installNode() const   {return _installNode; }
+    ConnectivityNode* installNode() const   { return _installNode; }
     ConnectivityNode* directionNode() const { return _directionNode; }
 
     double firstZ() const   { return _firstZ; }
@@ -46,8 +70,6 @@ public slots:
 
 
 private:
-    void resetParameters();
-
     void calculateFirstStep_DP();
     void calculateSecondStep_DP();
     void calculateThirdStep_DP();
@@ -58,9 +80,10 @@ private:
     DistanceProtectionTerminal* findNextDPTerminal();
     Transformer* chooseTransformer(DistanceProtectionTerminal*);
 
+    void registerQmlTypes();
+
 private:
     Function* _function;
-//    WLine* _protectionObject;
     ConnectivityNode* _installNode;
     ConnectivityNode* _directionNode;
 
@@ -71,5 +94,6 @@ private:
     double _firstT;
     double _secondT;
     double _thirdT;
+
 };
 #endif // DISTANCEPROTECTION_H
