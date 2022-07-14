@@ -1,7 +1,7 @@
 name;obj;node;direction;z_first,Ohm;t_first,sec;z_second,Ohm;t_second,sec;z_third,Ohm;t_third,sec
-dp1;W1;b1;b3;;;;;;
-dp2;W1;b3;b1;;;;;;
-dp3;W2;b3;b2;;;;;;
-dp4;W2;b2;b3;;;;;;
-dp5;W3;b2;b1;;;;;;
-dp6;W3;b1;b2;;;;;;
+DP1;W1;b1;b3;;;;;;
+DP2;W1;b3;b1;;;;;;
+DP3;W2;b3;b2;;;;;;
+DP4;W2;b2;b3;;;;;;
+DP5;W3;b2;b1;;;;;;
+DP6;W3;b1;b2;;;;;;

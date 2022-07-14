@@ -17,5 +17,7 @@
         <file>csvFiles/ss2/WLines.csv</file>
         <file>Elements/DPTerminalButton.qml</file>
         <file>Elements/ProtectionPopup.qml</file>
+        <file>Elements/EquipmentPopup.qml</file>
+        <file>Pages/Images/schemeUpd.png</file>
     </qresource>
 </RCC>

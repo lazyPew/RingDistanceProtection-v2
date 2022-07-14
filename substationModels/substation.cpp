@@ -43,9 +43,9 @@ void Substation::calculateProtectionParameters()
 void Substation::parseTransformer(QString line)
 {
     Transformer* transformer = new Transformer(line);
-    if(_transformersMap.find(transformer->name()) != _transformersMap.end())
-        delete _transformersMap.take(transformer->name());
-    _transformersMap.insert(transformer->name(), transformer);
+    if(_transformersMap.find(transformer->index()) != _transformersMap.end())
+        delete _transformersMap.take(transformer->index());
+    _transformersMap.insert(transformer->index(), transformer);
     connectTransformerToNodes(transformer);
 }
 
@@ -89,5 +89,10 @@ void Substation::parseTerminal(QString line)
                     functionObj()->equipment()->getWLine(line.split(";")[1]),
                     _hvLevel->getNodeByName(line.split(";")[2]),
                     _hvLevel->getNodeByName(line.split(";")[3]),
-                    functionObj()));
+            functionObj()));
+}
+
+Transformer *Substation::getTransformerByIndex(int index)
+{
+    return _transformersMap.values().at(index);
 }

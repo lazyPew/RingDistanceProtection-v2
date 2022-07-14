@@ -43,7 +43,6 @@ Popup {
                 TextField{
                     font.bold: true
                     font.pixelSize: 15
-                    opacity: 1
                     Layout.fillWidth: true
                     placeholderText: (modelData.value < 0
                                       ? "Не рассчитано"
@@ -74,6 +73,7 @@ Popup {
     }
 
     onOpened:{
+//        if(dpObject.index.startsWith("DP"))
         nameLabel.text = dpObject.fullName
         repeater.model = [
             { name: "Z I", value: dpObject.firstZ, unit: "Ом" },
@@ -84,4 +84,5 @@ Popup {
             { name: "T III", value: dpObject.thirdT, unit: "с" }
         ]
     }
+//    String.prototype.startsWith = function(str){}
 }

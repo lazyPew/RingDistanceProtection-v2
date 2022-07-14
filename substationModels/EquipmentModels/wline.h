@@ -36,6 +36,9 @@ public slots:
     QString node_1() const          { return _node_1; }
     QString node_2() const          { return _node_2; }
 
+protected:
+    void setNodes(QString, QString);
+
 private:
 //    void registerQmlTypes();
 

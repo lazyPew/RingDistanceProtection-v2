@@ -24,7 +24,7 @@ Transformer *ConnectivityNode::chooseTransformer()
 
 void ConnectivityNode::connectSystem(System* s)             { _connectedSystems.insert(s->index(), s); }
 void ConnectivityNode::connectWLine(WLine* w)               { _connectedWLines.insert(w->index(), w); }
-void ConnectivityNode::connectTransformer(Transformer* t)   { _connectedTransformers.insert(t->name(), t); }
+void ConnectivityNode::connectTransformer(Transformer* t)   { _connectedTransformers.insert(t->index(), t); }
 
 int ConnectivityNode::numbersOfSystems()        { return _connectedSystems.size(); }
 int ConnectivityNode::numbersOfWLines()         { return _connectedWLines.size(); }

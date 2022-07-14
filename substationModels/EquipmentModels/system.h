@@ -20,8 +20,8 @@ class System : public ProtectedEquipment
 
 public:
     explicit System(QString csvLine, QObject* parent = nullptr);
-
     explicit System(QString index, double power, double resist, QObject* parent = nullptr);
+
 
 public slots:
 //    QString name() const    {return _name;}
@@ -30,6 +30,7 @@ public slots:
     QString node() const    {return _node;}
 
 private:
+    void setNode(QString);
     void registerQmlTypes();
 
 private:

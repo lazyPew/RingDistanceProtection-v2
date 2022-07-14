@@ -10,18 +10,28 @@ WLine::WLine(QString name,
     , _resistX{resistX}
     , _resistR{resistR}
 {
-
+    const QRegExp rx(QLatin1Literal("[^0-9]+"));
+    const auto&& parts = index().split(rx, QString::SkipEmptyParts);
+    setFullName("ВЛ " + parts[0]);
 }
 
 WLine::WLine(QString csvLine, QObject *parent)
-    : ProtectedEquipment(csvLine.split(";")[0],parent)
-    , _length {csvLine.split(";")[1].toDouble()}
-    , _resistX {csvLine.split(";")[2].toDouble()}
-    , _resistR {csvLine.split(";")[3].toDouble()}
-    , _node_1{csvLine.split(";")[4]}
-    , _node_2{csvLine.split(";")[5]}
+    : WLine(csvLine.split(";")[0],
+            csvLine.split(";")[1].toDouble(),
+            csvLine.split(";")[2].toDouble(),
+            csvLine.split(";")[3].toDouble(),
+            parent)
 {
+    setNodes(csvLine.split(";")[4],csvLine.split(";")[5]);
+}
 
+void WLine::setNodes(QString node1, QString node2)
+{
+    //TODO fix node setter
+    if(node1 != _node_1)
+        _node_1 = node1;
+    if(node2 != _node_2)
+        _node_2 = node2;
 }
 
 //void WLine::registerQmlTypes() {

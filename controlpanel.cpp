@@ -86,7 +86,7 @@ void ControlPanel::getTerminalsFromCsv()
     QTextStream in(&terminalsFile);
     while (!in.atEnd()) {
         QString line = in.readLine();
-        if(line.split(";")[0].contains("dp"))
+        if(line.split(";")[0].contains("DP"))
             substation()->parseTerminal(line);
     }
 }

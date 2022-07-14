@@ -44,7 +44,6 @@ DistanceProtectionTerminal::DistanceProtectionTerminal(
         QObject *parent)
     : DistanceProtectionTerminal(name, protectedEquipment, parentModel, parent)
 {
-    registerQmlTypes();
     connectToNodes(installNode,directionNode);
 }
 

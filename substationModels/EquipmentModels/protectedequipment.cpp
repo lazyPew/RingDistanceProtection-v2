@@ -8,6 +8,12 @@ ProtectedEquipment::ProtectedEquipment(QString index, QObject* parent)
 
 }
 
+void ProtectedEquipment::setFullName(QString newName)
+{
+    if( newName != _fullName )
+        _fullName = newName;
+}
+
 void ProtectedEquipment::registerQmlTypes() {
     static bool registered = false;
     if (!registered) {

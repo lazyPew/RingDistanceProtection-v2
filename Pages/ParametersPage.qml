@@ -3,10 +3,9 @@ import QtQuick.Controls 2.2
 //import Native 1.0
 
 Page {
-    width: 600
-    height: 400
+    anchors.fill: parent
 
-    title: qsTr("scheme")
+    title: qsTr("Параметры ПС")
 
     Label {
         text: qsTr("You are on Page 1.")

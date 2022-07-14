@@ -29,8 +29,79 @@ Page {
                 anchors.fill: parent
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                source: "Images/scheme.png"
+                source: "Images/schemeUpd.png"
                 fillMode: Image.PreserveAspectFit
+
+                Rectangle {
+                    id: t2mvrect
+                    x: 675
+                    y: 367
+                    width: 55
+                    height: 51
+                    color: "#00000000"
+                    radius: 44
+                    border.color: "#ffffff"
+                }
+
+                Rectangle {
+                    id: t2lvrect
+                    x: 647
+                    y: 383
+                    width: 55
+                    height: 56
+                    color: "#00000000"
+                    radius: 44
+                    border.color: "#ffffff"
+                }
+
+                Rectangle {
+                    id: t2hvrect
+                    x: 646
+                    y: 354
+                    width: 53
+                    height: 56
+                    color: "#00000000"
+                    radius: 44
+                    border.color: "#ffffff"
+                }
+
+                Rectangle {
+                    id: t1mvrect
+                    x: 564
+                    y: 366
+                    width: 55
+                    height: 53
+                    color: "#00000000"
+                    radius: 44
+                    border.color: "#ffffff"
+                }
+
+                Rectangle {
+                    id: t1lvrect
+                    x: 537
+                    y: 383
+                    width: 56
+                    height: 55
+                    color: "#00000000"
+                    radius: 44
+                    border.color: "#ffffff"
+                }
+
+                Rectangle {
+                    id: t1hvrect
+                    x: 535
+                    y: 354
+                    width: 55
+                    height: 55
+                    color: "#00000000"
+                    radius: 44
+                    border.color: "#ffffff"
+                }
+
+
+
+
+
             }
 
             Repeater{
@@ -40,7 +111,7 @@ Page {
                     { x: 513, y: 253, w:61, h:47 },
                     { x: 658, y: 249, w:61, h:50 },
                     { x: 718, y: 99, w:48, h:61 },
-                    { x: 713, y: 12, w:48, h:60 },
+                    { x: 713, y: 10, w:48, h:60 },
                     { x: 466, y: 7, w:48, h:66 }
                 ]
 
@@ -58,8 +129,8 @@ Page {
                 x: -5
                 y: -2
                 model:[
-                    { x:356, y:42, w:55, h:55 },
-                    { x:804, y:43, w:57, h:55 },
+                    { x:298, y:39, w:117, h:62 },
+                    { x:802, y:39, w:119, h:62 },
                 ]
                 AbstractButton{
                     x: modelData.x
@@ -67,188 +138,59 @@ Page {
                     width: modelData.w
                     height: modelData.h
                     background: Rectangle {
-                        color: "#00000000"
-                        id: s1rect
-                        radius: 44
-                        border.color: "#ffffff"
+                        id: sBckg
+                        radius: 2
+                        scale: sMouseArea.containsPress ? 0.95 : 1
+                        opacity: sMouseArea.containsMouse ? 0.3 : 0.05
 
                     }
                     MouseArea {
-                        id: mouseArea
+                        id: sMouseArea
+                        hoverEnabled: true
                         anchors.fill: parent
                         onClicked:{
-                            console.log(index)
-                            console.log(panel.substation.functionObj.equipment.getSystemByIndex(index).index)
+                            equipmentPopup.eqObject = panel.substation.functionObj.equipment.getSystemByIndex(index)
+                            equipmentPopup.open()
+                        }
+                    }
+                }
+            }
+
+            Repeater{
+                id: tRepeater
+                model:[
+                    { x:512, y:317, w:106, h:124 },
+                    { x:619, y:316, w:112, h:124 }
+                ]
+                AbstractButton{
+                    x: modelData.x
+                    y: modelData.y
+                    width: modelData.w
+                    height: modelData.h
+                    background: Rectangle {
+                        id: tBckg
+                        radius: 2
+                        scale: tMouse.containsPress ? 0.98 : 1
+                        opacity: tMouse.containsMouse ? 0.3 : 0.05
+
+                        MouseArea {
+                            id: tMouse
+                            anchors.fill: parent
+                            onClicked: {
+                                equipmentPopup.eqObject = panel.substation.getTransformerByIndex(index)
+                                equipmentPopup.open()
+                            }
                         }
                     }
                 }
             }
 
             Rectangle {
-                id: b5rect
-                x: 510
-                y: 505
-                width: 209
-                height: 7
-                color: "#ffffff"
-            }
-
-            Rectangle {
-                id: b4rect
-                x: 753
-                y: 312
-                width: 7
-                height: 183
-                color: "#ffffff"
-            }
-
-            Rectangle {
-                id: b3rect
-                x: 519
-                y: 307
-                width: 178
-                height: 6
-                color: "#ffffff"
-            }
-
-            Rectangle {
-                id: b2rect
-                x: 789
-                y: 39
-                width: 7
-                height: 109
-                color: "#ffffff"
-                border.color: "#ffffff"
-            }
-
-            Rectangle {
-                id: b1rect
-                x: 424
-                y: 43
-                width: 7
-                height: 89
-                color: "#ffffff"
-                border.color: "#ffffff"
-            }
-
-            Rectangle {
-                id: t1rect
-                x: 497
-                y: 316
-                width: 135
-                height: 138
-                color: "#00000000"
-                border.color: "#00000000"
-                Rectangle {
-                    id: t1hvrect
-                    x: 38
-                    y: 38
-                    width: 55
-                    height: 55
-                    color: "#00000000"
-                    radius: 44
-                    border.color: "#ffffff"
-                }
-
-                Rectangle {
-                    id: t1lvrect
-                    x: 40
-                    y: 67
-                    width: 56
-                    height: 55
-                    color: "#00000000"
-                    radius: 44
-                    border.color: "#ffffff"
-                }
-
-                Rectangle {
-                    id: t1mvrect
-                    x: 67
-                    y: 50
-                    width: 55
-                    height: 53
-                    color: "#00000000"
-                    radius: 44
-                    border.color: "#ffffff"
-                }
-
-                MouseArea {
-                    id: t1mouse1
-                    width: 56
-                    height: 44
-                }
-
-                MouseArea {
-                    id: t1mouse2
-                    x: 35
-                    y: 36
-                    width: 88
-                    height: 89
-                }
-            }
-
-            Rectangle {
-                id: t2rect
-                x: 611
-                y: 319
-                width: 135
-                height: 138
-                color: "#00000000"
-                Rectangle {
-                    id: t2hvrect
-                    x: 35
-                    y: 35
-                    width: 53
-                    height: 56
-                    color: "#00000000"
-                    radius: 44
-                    border.color: "#ffffff"
-                }
-
-                Rectangle {
-                    id: t2lvrect
-                    x: 36
-                    y: 64
-                    width: 55
-                    height: 56
-                    color: "#00000000"
-                    radius: 44
-                    border.color: "#ffffff"
-                }
-
-                Rectangle {
-                    id: t2mvrect
-                    x: 64
-                    y: 48
-                    width: 55
-                    height: 51
-                    color: "#00000000"
-                    radius: 44
-                    border.color: "#ffffff"
-                }
-
-                MouseArea {
-                    id: t2mouse1
-                    width: 58
-                    height: 36
-                }
-
-                MouseArea {
-                    id: t2mouse2
-                    x: 32
-                    y: 36
-                    width: 91
-                    height: 85
-                }
-                border.color: "#00000000"
-            }
-
-            Rectangle {
                 id: l3rect
-                x: 164
-                y: 25
-                width: 120
-                height: 39
+                x: 506
+                y: 50
+                width: 215
+                height: 51
                 color: "#00000000"
                 border.color: "#00000000"
 
@@ -267,15 +209,10 @@ Page {
 
                 MouseArea {
                     id: l3mouse2
-                    x: 0
-                    y: 19
-                    width: 30
-                    height: 20
-                    anchors.bottom: parent.bottom
-                    anchors.top: l3mouse1.bottom
-                    anchors.topMargin: 4
-                    anchors.leftMargin: 42
-                    anchors.left: parent.left
+                    x: 70
+                    y: 13
+                    width: 60
+                    height: 36
                 }
             }
 
@@ -283,16 +220,16 @@ Page {
                 id: l2rect
                 x: 666
                 y: 101
-                width: 77
+                width: 93
                 height: 149
                 color: "#00000000"
                 rotation: 0
                 MouseArea {
                     id: l2mouse1
                     x: 34
-                    y: 70
-                    width: 40
-                    height: 35
+                    y: 76
+                    width: 58
+                    height: 36
                 }
 
                 MouseArea {
@@ -330,9 +267,9 @@ Page {
                 MouseArea {
                     id: l1mouse1
                     x: 7
-                    y: 69
-                    width: 33
-                    height: 37
+                    y: 76
+                    width: 61
+                    height: 40
                 }
 
                 MouseArea {

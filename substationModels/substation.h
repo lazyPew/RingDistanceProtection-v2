@@ -38,6 +38,8 @@ public slots:
     void parseWLine(QString line);
     void parseTerminal(QString line);
 
+    Transformer* getTransformerByIndex(int index);
+
 private:
     void connectTransformerToNodes(Transformer*);
     void connectSystemToNodes(System*);
